@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Senior Design</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+	<style>
+		body{
+		background-image:url(AndroidBG2.png);
+		
+		background-attachment:fixed;
+		}
+		h1{
+		color:black;
+		text-align:center;
+		}
+		form{
+		text-align:center;
+		}
+		
+	</style>
+     
+    </head>
+    <body>
+		
+        
+        <h1>Welcome to Collector!</h1>
+		
+	<br>
+	<br>
+	<br>
+		<p> <strong> <center>Please sign in!</center> <strong> </p>
+		<form name="iput" action="html_log_in.asp" method="post"> 
+			<input type="text" name="username" placeholder="Username"><br>
+			<input type="password" name="pwd" placeholder ="Password"><br>
+			<input type="submit" value="Log in"><br>
+		</form>
+		<br>
+		
+		
+		
+		<p> <strong> <center> Not a member? Sign up! </center> </strong> </p>
+		<form name="input" action="html_sign_up.asp" method="post"> 
+			<input type="text" name="email" placeholder="Email"><br>
+			<input type="text" name="username" placeholder="Username"><br>
+			<input type="password" name="pwd" placeholder="Password"><br>
+			<input type="submit" value="Sign up"><br>
+		</form>
+		
+		
+		<p> <strong> <center> Or proceed as guest to view collections </center> </strong> </p>
+		<form name="input" action="guest.html" method="get">	
+			<input type="submit" value="Guest">
+		</form>
+		<br>
+		<br>
+		
+		<footer> <center> Copyright 2014 by Kevin Gonzalez & Tasha Hankewych.<br>
+		If any assistance is needed, please email <a href="mailto:kgonzalez99#ufl.edu">kgonzalez99@ufl.edu </a> </center>
+		</footer>
+		
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script src="js/main.js"></script>
+
+       
+    </body>
+</html>
