@@ -19,7 +19,7 @@ Using MongoDB, come up with a non-relational "schema" for a database to store al
 
 Task 3. Create a Website
 
-Make a website that has the same functionality as the Android application. Connect the website to the Mongo database.
+My project partner Kevin Gonzalez will make a website that has the same functionality as the Android application. Together, we will connect the website to the Mongo database.
 
 
 Task 4. Write a Final Report
@@ -33,7 +33,7 @@ Task 4. Write a Final Report
 
 3. Web Application: source code on GitHub, viewable on a website whose domain name is TBD
 
-4. Final Report: soft copy emailed to advisor and supervisor, hard copy to be printed and delivered to advisor and supervisor
+4. Final Report: soft copy emailed to advisor and coordinator, hard copy to be printed and delivered to advisor and coordinator
 
 * All deliverables will be available through the GitHub repo: 
 https://github.com/tash1207/SeniorProject
