@@ -1,0 +1,33 @@
+Users (contains collections which contain comments)
+{
+	_id : 1,
+	username : "tashawych",
+	email : "thankewych@gmail.com",
+	display_name : "Natalya Dominika Hankewych",
+	picture : "jfj39eDD...",
+	collections : [
+	{
+		_id : 1
+		title : "Vintage Stamps"
+		description : "Stamps ranging from the 1700s to the early 1900s"
+		category : "Stamps"
+		is_private : false
+		picture : "Hv739109dj..."
+		comments : [
+		{
+			username : "L1fescape",
+			text : "This is an amazing collection of stamps!"
+		}
+	}
+	]
+}
+
+Items
+{
+	_id : 1,
+	collection_id : 1,
+	title : "1860s American Flag",
+	description : "Very popular during the Civil War",
+	picture : "hYeu73F.."
+}
+

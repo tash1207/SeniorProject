@@ -1,0 +1,29 @@
+Collections
+- id		INT
+- user_id	INT
+- title		TEXT
+- description	TEXT
+- category	TEXT
+- is_private	BOOLEAN
+- picture	TEXT
+
+Items
+- id		INT
+- collection_id	INT
+- title		TEXT
+- description	TEXT
+- picture	TEXT
+
+Users
+- id		INT
+- username	TEXT
+- email 	TEXT
+- display_name	TEXT
+- picture	TEXT
+
+Comments
+- id		INT
+- user_id	INT
+- collection_id	INT
+- item_id	INT
+- text		TEXT
