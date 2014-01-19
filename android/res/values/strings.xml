@@ -10,5 +10,9 @@
     <string name="signup">Sign Up</string>
     <string name="browse">Browse</string>
     <string name="or">- or -</string>
+    
+    <string name="name">Name</string>
+    <string name="picture">Picture</string>
+    <string name="my_collections">My Collections</string>
 
 </resources>

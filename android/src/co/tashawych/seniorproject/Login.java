@@ -1,6 +1,7 @@
 package co.tashawych.seniorproject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -23,6 +24,9 @@ public class Login extends Activity {
 		String password = edit_password.getText().toString();
 		
 		Toast.makeText(this, "Username: " + username + "\nPassword: " + password, Toast.LENGTH_SHORT).show();
+		
+		Intent profile = new Intent(this, Profile.class);
+		startActivity(profile);
 	}
 
 	public void btn_signup_clicked(View v) {
