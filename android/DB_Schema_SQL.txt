@@ -1,3 +1,11 @@
+Users
+- id		INT
+- username	TEXT
+- email 	TEXT
+- password	TEXT
+- display_name	TEXT
+- picture	TEXT
+
 Collections
 - id		INT
 - user_id	INT
@@ -6,19 +14,13 @@ Collections
 - category	TEXT
 - is_private	BOOLEAN
 - picture	TEXT
+- favorites	INT
 
 Items
 - id		INT
 - collection_id	INT
 - title		TEXT
 - description	TEXT
-- picture	TEXT
-
-Users
-- id		INT
-- username	TEXT
-- email 	TEXT
-- display_name	TEXT
 - picture	TEXT
 
 Comments
