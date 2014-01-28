@@ -1,0 +1,39 @@
+CIS 4914 Project Plan
+
+Project: Mobile and Web Application for Storing Collections
+Student: Natalya Hankewych
+UFID[5-8]: 9690
+Date of Approval: 12/3/13
+
+Statement of Work:
+
+Task 1. Develop an Android Application
+
+Design the layouts for each of the following screens: logging in/signing up, viewing a list of collections, viewing the items of an individual collection, viewing an individual item in a collection, browsing other peoples' collections by category, creating a new collection, and editing an existing collection. Use dummy data and store all user-uploaded content client-side.
+
+
+Task 2. Connect app to a Server-Side Database
+
+Using MongoDB, come up with a non-relational "schema" for a database to store all of the application's data. Set up API routes using Pymongo to allow the application to interact with the database.
+
+
+Task 3. Create a Website
+
+My project partner Kevin Gonzalez will make a website that has the same functionality as the Android application. Together, we will connect the website to the Mongo database.
+
+
+Task 4. Write a Final Report
+
+
+*Deliverables:
+
+1. Android Application: source code on GitHub, final product can be delivered as an APK file or possibly downloadable from the Google Play Store
+
+2. MongoDB backend: source code on GitHub
+
+3. Web Application: source code on GitHub, viewable on a website whose domain name is TBD
+
+4. Final Report: soft copy emailed to advisor and coordinator, hard copy to be printed and delivered to advisor and coordinator
+
+* All deliverables will be available through the GitHub repo: 
+https://github.com/tash1207/SeniorProject
