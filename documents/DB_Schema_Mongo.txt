@@ -1,3 +1,58 @@
+Preferred Schema
+================
+
+Users
+{
+	_id : 1,
+	username : "tashawych",
+	email : "thankewych@gmail.com",
+	password : "822yfyfyYYY...",
+	display_name : "Natalya Dominika Hankewych",
+	picture : "7ffhHH337..."
+}
+
+Collections
+{
+	_id : 1,
+	user_id : 1,
+	title : "Vintage Stamps",
+	description : "Stamps from the 1700s to the early 1900s",
+	category : "Stamps",
+	is_private : false,
+	picture : "Hv739109dj...",
+	# If picture is missing, use category to display a default icon
+	owner : "tashawych",
+	favorites : 6,
+	comments : [
+	{
+		username : "L1fescape",
+		text : "This is an amazing collection of stamps!"
+	}
+	]
+}
+
+Items
+{
+	_id : 1,
+	collection_id : 1,
+	title : "1860s American Flag",
+	description : "Very popular during the Civil War",
+	picture : "hYeu73F..",
+	comments: [
+	{
+		username : "L1fescape",
+		text : "This stamp is the coolest"
+	},
+	{
+		username : "tashawych",
+		text : "Thanks, it's my favorite too!"
+	}
+	]
+}
+
+Alternate Schema
+================
+
 Users (contains collections which contain comments)
 {
 	_id : 1,
@@ -45,54 +100,3 @@ Items
 	]
 }
 
-
-Alternate Schema
-================
-
-Users
-{
-	_id : 1,
-	username : "tashawych",
-	email : "thankewych@gmail.com",
-	password : "822yfyfyYYY...",
-	display_name : "Natalya Dominika Hankewych",
-	picture : "7ffhHH337..."
-}
-
-Collections
-{
-	_id : 1,
-	title : "Vintage Stamps",
-	description : "Stamps from the 1700s to the early 1900s",
-	category : "Stamps",
-	is_private : false,
-	picture : "Hv739109dj...",
-	# If picture is missing, use category to display a default icon
-	owner : "tashawych",
-	favorites : 6,
-	comments : [
-	{
-		username : "L1fescape",
-		text : "This is an amazing collection of stamps!"
-	}
-	]
-}
-
-Items
-{
-	_id : 1,
-	collection_id : 1,
-	title : "1860s American Flag",
-	description : "Very popular during the Civil War",
-	picture : "hYeu73F..",
-	comments: [
-	{
-		username : "L1fescape",
-		text : "This stamp is the coolest"
-	},
-	{
-		username : "tashawych",
-		text : "Thanks, it's my favorite too!"
-	}
-	]
-}
