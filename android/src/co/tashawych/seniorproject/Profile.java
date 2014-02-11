@@ -2,6 +2,7 @@ package co.tashawych.seniorproject;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class Profile extends Activity {
@@ -17,4 +18,7 @@ public class Profile extends Activity {
 		num.setText("2");
 	}
 
+	public void btn_create_collection_clicked(View v) {
+		
+	}
 }

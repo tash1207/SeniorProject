@@ -14,5 +14,6 @@
     <string name="name">Name</string>
     <string name="picture">Picture</string>
     <string name="my_collections">My Collections</string>
+    <string name="create_collection">Create a New Collection</string>
 
 </resources>
