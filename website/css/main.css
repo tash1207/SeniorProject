@@ -18,6 +18,28 @@ textarea {
     color: #222;
 }
 
+/* UL for nav bar */
+
+ul {
+	list-style-type:none;
+	margin:0 auto;
+	padding:0;
+	left:50&;
+	text-align:center;
+	overflow:hidden;
+	display:table;
+}
+
+li {
+	float:left;
+}
+
+a {
+	display:block;
+	width:60px;
+	background-color:#ccc;
+}
+
 html {
     font-size: 1em;
     line-height: 1.4;
@@ -45,11 +67,12 @@ html {
 
 hr {
     display: block;
-    height: 1px;
+    height: 2px;
     border: 0;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid black;
     margin: 1em 0;
-    padding: 0;
+    padding: 1;
+	color: black;
 }
 
 /*
