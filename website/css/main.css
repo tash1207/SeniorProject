@@ -18,6 +18,10 @@ textarea {
     color: #222;
 }
 
+form {
+	text-align: center;
+	}
+
 /* UL for nav bar */
 
 ul {
