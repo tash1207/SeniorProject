@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import co.tashawych.collector.R;
 
 public class Login extends Activity {
 
