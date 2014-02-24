@@ -1,4 +1,4 @@
-package co.tashawych.seniorproject;
+package co.tashawych.collector;
 
 import android.app.Activity;
 import android.content.Intent;
