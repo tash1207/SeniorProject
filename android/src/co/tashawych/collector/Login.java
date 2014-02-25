@@ -19,12 +19,12 @@ public class Login extends Activity {
 
 	public void btn_login_clicked(View v) {
 		EditText edit_username = (EditText) findViewById(R.id.edit_username);
-		EditText edit_password = (EditText) findViewById(R.id.edit_password);
+		//EditText edit_password = (EditText) findViewById(R.id.edit_password);
 		
 		String username = edit_username.getText().toString();
-		String password = edit_password.getText().toString();
+		//String password = edit_password.getText().toString();
 		
-		Toast.makeText(this, "Username: " + username + "\nPassword: " + password, Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Username: " + username, Toast.LENGTH_SHORT).show();
 		
 		Intent profile = new Intent(this, Profile.class);
 		startActivity(profile);

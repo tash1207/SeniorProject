@@ -49,6 +49,13 @@ public class MyCollectionsAdapter extends SimpleCursorAdapter {
         
         cursor.moveToPosition(position);
         holder.title.setText(cursor.getString(cursor.getColumnIndex(CollectionDB.COL_TITLE)));
+        
+        if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals("coin")) {
+        	holder.picture.setImageResource(R.drawable.ic_coin);
+        }
+        else if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals("stamp")) {
+        	holder.picture.setImageResource(R.drawable.ic_stamp);
+        }
 		
 		return convertView;
 	}
