@@ -1,0 +1,11 @@
+{
+  "name": "senior design",
+  "dependencies": {
+    "angular": "~1.2.9",
+    "bootstrap": "~3.1.1",
+    "requirejs": "~2.1.10",
+    "angular-ui-router": "0.2.7",
+    "angular-resource": "~1.2.12",
+    "restangular": "~1.3.1"
+  }
+}
