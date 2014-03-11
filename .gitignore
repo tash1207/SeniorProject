@@ -31,3 +31,9 @@ proguard-project.txt
 # Mac
 
 .DS_Store
+
+# Website
+
+website/.vagrant
+website/node_modules
+website/app/bower_components
