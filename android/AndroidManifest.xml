@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name="co.tashawych.collector.Profile" />
-            
+        <activity android:name="co.tashawych.collector.AddCollection" />
     </application>
 
 </manifest>

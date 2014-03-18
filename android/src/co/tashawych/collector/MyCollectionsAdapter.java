@@ -1,6 +1,7 @@
 package co.tashawych.collector;
 
 import co.tashawych.db.CollectionDB;
+import co.tashawych.misc.Utility;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -50,11 +51,29 @@ public class MyCollectionsAdapter extends SimpleCursorAdapter {
         cursor.moveToPosition(position);
         holder.title.setText(cursor.getString(cursor.getColumnIndex(CollectionDB.COL_TITLE)));
         
-        if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals("coin")) {
+        if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals(Utility.cat_book)) {
+        	holder.picture.setImageResource(R.drawable.ic_book);
+        }
+        else if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals(Utility.cat_card)) {
+        	holder.picture.setImageResource(R.drawable.ic_card);
+        }
+        else if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals(Utility.cat_coin)) {
         	holder.picture.setImageResource(R.drawable.ic_coin);
         }
-        else if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals("stamp")) {
+        else if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals(Utility.cat_electronic)) {
+        	holder.picture.setImageResource(R.drawable.ic_electronic);
+        }
+        else if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals(Utility.cat_figurine)) {
+        	holder.picture.setImageResource(R.drawable.ic_figurine);
+        }
+        else if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals(Utility.cat_media)) {
+        	holder.picture.setImageResource(R.drawable.ic_media);
+        }
+        else if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals(Utility.cat_stamp)) {
         	holder.picture.setImageResource(R.drawable.ic_stamp);
+        }
+        else {
+        	holder.picture.setImageResource(R.drawable.logo_no_bg);
         }
 		
 		return convertView;
