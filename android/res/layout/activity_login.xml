@@ -23,53 +23,124 @@
         android:layout_centerInParent="true"
         android:orientation="vertical" >
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_grey_border"
-            android:orientation="vertical"
-            android:padding="16dp" >
+            android:layout_height="wrap_content" >
 
             <LinearLayout
+                android:id="@+id/layout_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/rounded_white"
-                android:orientation="vertical" >
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/rounded_grey_border"
+                android:orientation="vertical"
+                android:padding="16dp" >
 
-                <EditText
-                    android:id="@+id/edit_username"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:hint="@string/username"
-                    android:inputType="text"
-                    android:padding="12dp" />
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/rounded_white"
+                    android:orientation="vertical" >
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#D8D8D8" />
+                    <EditText
+                        android:id="@+id/edit_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint="@string/username"
+                        android:inputType="text"
+                        android:padding="12dp" />
 
-                <EditText
-                    android:id="@+id/edit_password"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#D8D8D8" />
+
+                    <EditText
+                        android:id="@+id/edit_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:padding="12dp" />
+                </LinearLayout>
+
+                <Button
+                    style="@style/big_button_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#00000000"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:padding="12dp" />
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_green"
+                    android:onClick="btn_login_clicked"
+                    android:text="@string/login" />
             </LinearLayout>
 
-            <Button
-                style="@style/big_button_text"
+            <LinearLayout
+                android:id="@+id/layout_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/rounded_green"
-                android:onClick="btn_login_clicked"
-                android:text="@string/login" />
-        </LinearLayout>
+                android:background="@drawable/rounded_grey_border"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="invisible" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/rounded_white"
+                    android:orientation="vertical" >
+
+                    <EditText
+                        android:id="@id/edit_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint="@string/username"
+                        android:inputType="text"
+                        android:padding="12dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#D8D8D8" />
+
+                    <EditText
+                        android:id="@id/edit_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:padding="12dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#D8D8D8" />
+
+                    <EditText
+                        android:id="@+id/edit_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress"
+                        android:padding="12dp" />
+                </LinearLayout>
+
+                <Button
+                    style="@style/big_button_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_blue"
+                    android:onClick="btn_signup_clicked"
+                    android:text="@string/signup" />
+            </LinearLayout>
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -88,15 +159,31 @@
             android:layout_marginRight="20dp"
             android:orientation="horizontal" >
 
-            <Button
-                style="@style/big_button_text"
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_blue"
-                android:onClick="btn_signup_clicked"
-                android:text="@string/signup" />
+                android:layout_weight="1" >
+
+                <Button
+                    android:id="@+id/btn_bottom_signup"
+                    style="@style/big_button_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_blue"
+                    android:onClick="btn_bottom_signup_clicked"
+                    android:text="@string/signup" />
+
+                <Button
+                    android:id="@+id/btn_bottom_login"
+                    style="@style/big_button_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_green"
+                    android:onClick="btn_bottom_login_clicked"
+                    android:text="@string/login"
+                    android:visibility="gone" />
+            </FrameLayout>
 
             <Button
                 style="@style/big_button_text"
