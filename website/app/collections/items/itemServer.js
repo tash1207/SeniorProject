@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 	
-	var moduleName = 'app.item.server',
+	var moduleName = 'app/collections/items/itemServer',
 	
 		angularDependencies = [];
 	
@@ -15,25 +15,25 @@
 				function($http) {
 					var itemServer = {};
 					
-					itemServer.getId = function(id) {
-						id = id || '';
-						return $http.get('api/item' + id);
+					itemServer.get = function(id) {
+						return $http.get('/api/item/' + id);
 					};
 					
-					itemServer.setId = function(id) {
-						id = id || '';
-						return $http.post('api/item' + id);
-					}
+					itemServer.create = function(item) {
+						return $http.post('/api/item/', item);
+					};
 					
-					itemServer.getCollectionId = function(collectionId) {
-						collectionId = collectionId || '';
-						return $http.get('api/item' + id);
-					}
+					itemServer.update = function(item) {
+						return $http.post('/api/item/' + item._id, item);
+					};
 					
-					itemServer.setCollectionId = function(collectionId) {
-						collectionId = collectionId || '';
-						return $http.set('api/item' + id);
-					}
+					itemServer.delete = function(id) {
+						return $http.delete('/api/item/' + id);
+					};
+					
+					return itemServer;
+				
+					
 					
 					}
 				]);
