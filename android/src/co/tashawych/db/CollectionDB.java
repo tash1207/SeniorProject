@@ -8,7 +8,7 @@ public class CollectionDB {
 	
 	private static final String TABLE_NAME = "collection";
 	public static final String COL_ID = "_id";
-	public static final String COL_USER_ID = "user_id";
+	public static final String COL_USERNAME = "username";
 	public static final String COL_TITLE = "title";
 	public static final String COL_DESCRIPTION = "description";
 	public static final String COL_CATEGORY = "category";
@@ -19,7 +19,7 @@ public class CollectionDB {
 	public static void createTable(SQLiteDatabase db) {
 		String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(" 
 				+ COL_ID + " INTEGER PRIMARY KEY, " 
-				+ COL_USER_ID + " INTEGER, " 
+				+ COL_USERNAME + " TEXT, " 
 				+ COL_TITLE + " TEXT, "
 				+ COL_DESCRIPTION + " TEXT, "
 				+ COL_CATEGORY + " TEXT, "
@@ -33,8 +33,8 @@ public class CollectionDB {
 		db.insert(TABLE_NAME, null, collection.toContentValues());
 	}
 	
-	public static Cursor getCollectionsByUserId(SQLiteDatabase db, int user_id) {
-		return db.query(TABLE_NAME, null, COL_USER_ID + " = " + user_id, null, null, null, COL_TITLE + " ASC");
+	public static Cursor getCollectionsByUserId(SQLiteDatabase db, String username) {
+		return db.query(TABLE_NAME, null, COL_USERNAME + " = " + username, null, null, null, COL_TITLE + " ASC");
 	}
 
 }

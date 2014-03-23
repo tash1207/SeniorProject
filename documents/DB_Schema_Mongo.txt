@@ -3,8 +3,7 @@ Preferred Schema
 
 Users
 {
-	_id : 1,
-	username : "tashawych",
+	_id : "tashawych",
 	email : "thankewych@gmail.com",
 	password : "822yfyfyYYY...",
 	display_name : "Natalya Dominika Hankewych",
@@ -14,14 +13,13 @@ Users
 Collections
 {
 	_id : 1,
-	user_id : 1,
+	username : "tashawych",
 	title : "Vintage Stamps",
 	description : "Stamps from the 1700s to the early 1900s",
 	category : "Stamps",
 	is_private : false,
 	picture : "Hv739109dj...",
 	# If picture is missing, use category to display a default icon
-	owner : "tashawych",
 	favorites : 6,
 	comments : [
 	{

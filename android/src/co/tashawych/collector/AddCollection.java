@@ -51,7 +51,7 @@ public class AddCollection extends Activity {
 
 		// Send the collection to the server to get a Collection id, then store
 		// client-side
-		Collection col = new Collection(id, 1, title, description, category, false, null);
+		Collection col = new Collection(id, "tash1207", title, description, category, false, null);
 
 		// Store this collection client-side
 		DatabaseHelper.getHelper(this).insertCollection(col);

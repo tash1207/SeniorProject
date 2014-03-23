@@ -7,7 +7,7 @@ import android.database.Cursor;
 public class Collection {
 	
 	private int id;
-	private int user_id;
+	private String username;
 	private String title;
 	private String description;
 	private String category;
@@ -15,10 +15,10 @@ public class Collection {
 	private String picture;
 	private int num_favorites;
 	
-	public Collection(int id, int user_id, String title, String description, String category, 
+	public Collection(int id, String username, String title, String description, String category, 
 			boolean is_private, String picture) {
 		this.id = id;
-		this.user_id = user_id; //APIHandler.getUserId();
+		this.username = username; //APIHandler.getUsername();
 		this.title = title;
 		this.description = description;
 		this.category = category;
@@ -28,7 +28,7 @@ public class Collection {
 	
 	public Collection(Cursor c) {
 		this.id = c.getInt(c.getColumnIndex(CollectionDB.COL_ID));
-		this.user_id = c.getInt(c.getColumnIndex(CollectionDB.COL_USER_ID));
+		this.username = c.getString(c.getColumnIndex(CollectionDB.COL_USERNAME));
 		this.title = c.getString(c.getColumnIndex(CollectionDB.COL_TITLE));
 		this.description = c.getString(c.getColumnIndex(CollectionDB.COL_DESCRIPTION));
 		this.category = c.getString(c.getColumnIndex(CollectionDB.COL_CATEGORY));
@@ -40,7 +40,7 @@ public class Collection {
 	public ContentValues toContentValues() {
 		ContentValues cv = new ContentValues();
 		cv.put(CollectionDB.COL_ID, id);
-		cv.put(CollectionDB.COL_USER_ID, user_id);
+		cv.put(CollectionDB.COL_USERNAME, username);
 		cv.put(CollectionDB.COL_TITLE, title);
 		cv.put(CollectionDB.COL_DESCRIPTION, description);
 		cv.put(CollectionDB.COL_CATEGORY, category);
@@ -56,8 +56,8 @@ public class Collection {
 		return id;
 	}
 	
-	public int getUserId() {
-		return user_id;
+	public String getUsername() {
+		return username;
 	}
 	
 	public String getTitle() {
