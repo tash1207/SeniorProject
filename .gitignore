@@ -37,3 +37,4 @@ proguard-project.txt
 website/.vagrant
 website/node_modules
 website/app/bower_components
+website/npm-debug.log
