@@ -13,6 +13,8 @@ public class Utility {
 	public static final String cat_media = "Media";
 	public static final String cat_stamp = "Stamps";
 	
+	public static final String URL = "http://tashawych.co:8080";
+	
 	public static int getListViewHeight(ListView list) {
 		ListAdapter adapter = list.getAdapter();
 		list.measure(MeasureSpec.makeMeasureSpec(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED), 

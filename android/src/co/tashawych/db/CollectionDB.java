@@ -34,7 +34,7 @@ public class CollectionDB {
 	}
 	
 	public static Cursor getCollectionsByUserId(SQLiteDatabase db, String username) {
-		return db.query(TABLE_NAME, null, COL_USERNAME + " = " + username, null, null, null, COL_TITLE + " ASC");
+		return db.query(TABLE_NAME, null, COL_USERNAME + "=?", new String[]{username}, null, null, COL_TITLE + " ASC");
 	}
 
 }

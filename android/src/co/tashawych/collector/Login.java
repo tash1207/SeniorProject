@@ -1,8 +1,18 @@
 package co.tashawych.collector;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
@@ -11,6 +21,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import co.tashawych.http.HttpRequest;
+import co.tashawych.misc.Utility;
 
 public class Login extends Activity {
 
@@ -21,32 +33,65 @@ public class Login extends Activity {
 	}
 
 	public void btn_login_clicked(View v) {
-		EditText edit_username = (EditText) findViewById(R.id.edit_username);
-		//EditText edit_password = (EditText) findViewById(R.id.edit_password);
+		EditText edit_username = (EditText) findViewById(R.id.edit_username_login);
+		EditText edit_password = (EditText) findViewById(R.id.edit_password_login);
 		
 		String username = edit_username.getText().toString();
-		//String password = edit_password.getText().toString();
+		String password = edit_password.getText().toString();
 		
-		Toast.makeText(this, "Username: " + username, Toast.LENGTH_SHORT).show();
+		String response = "";
 		
-		Intent profile = new Intent(this, Profile.class);
-		startActivity(profile);
+		try {
+			response = new login_post(username, password).execute().get();
+			Log.d("btn_login response", response);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		
+		if (!response.equals("")) {
+			Intent profile = new Intent(this, Profile.class);
+			startActivity(profile);
+		}
+		else {
+			Toast.makeText(this, "Login failed.", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	public void btn_signup_clicked(View v) {
-		//EditText edit_username = (EditText) findViewById(R.id.edit_username);
-		//EditText edit_password = (EditText) findViewById(R.id.edit_password);
-		EditText edit_email = (EditText) findViewById(R.id.edit_email);
+		EditText edit_username = (EditText) findViewById(R.id.edit_username_signup);
+		EditText edit_password = (EditText) findViewById(R.id.edit_password_signup);
+		EditText edit_email = (EditText) findViewById(R.id.edit_email_signup);
 		
-		//String username = edit_username.getText().toString();
-		//String password = edit_password.getText().toString();
+		String username = edit_username.getText().toString();
+		String password = edit_password.getText().toString();
 		String email = edit_email.getText().toString();
 		
-		Toast.makeText(this, "Email: " + email, Toast.LENGTH_SHORT).show();
+		if (username.length() < 3 || password.length() < 3) {
+			Toast.makeText(this, "Username and Password must be at least 3 characters", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		
-		// TODO from signup, pass a first_time boolean to profile to show mini tutorial
-		Intent profile = new Intent(this, Profile.class);
-		startActivity(profile);
+		String response = "";
+		
+		try {
+			response = new signup_post(username, password, email).execute().get();
+			Log.d("btn_signup response", response);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		
+		if (!response.equals("")) {
+			// TODO from signup, pass a first_time boolean to profile to show mini tutorial
+			Intent profile = new Intent(this, Profile.class);
+			startActivity(profile);
+		}
+		else {
+			Toast.makeText(this, "Signup failed.", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	public void btn_browse_clicked(View v) {
@@ -90,6 +135,61 @@ public class Login extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	private class login_post extends AsyncTask<Void, Void, String> {
+		final String username;
+		final String password;
+		
+		private login_post(String username, String password) {
+			this.username = username;
+			this.password = password;
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			try {
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+	            nameValuePairs.add(new BasicNameValuePair("username", username));
+	            nameValuePairs.add(new BasicNameValuePair("password", password));
+	            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(nameValuePairs);
+
+				return HttpRequest.POST(Utility.URL + "/login", entity);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+	}
+	
+	private class signup_post extends AsyncTask<Void, Void, String> {
+		final String username;
+		final String password;
+		final String email;
+		
+		private signup_post(String username, String password, String email) {
+			this.username = username;
+			this.password = password;
+			this.email = email;
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			try {
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+	            nameValuePairs.add(new BasicNameValuePair("username", username));
+	            nameValuePairs.add(new BasicNameValuePair("password", password));
+	            nameValuePairs.add(new BasicNameValuePair("email", email));
+	            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(nameValuePairs);
+
+				return HttpRequest.POST(Utility.URL + "/signup", entity);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
 	}
 
 }

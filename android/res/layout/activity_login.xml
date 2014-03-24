@@ -44,7 +44,7 @@
                     android:orientation="vertical" >
 
                     <EditText
-                        android:id="@+id/edit_username"
+                        android:id="@+id/edit_username_login"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#00000000"
@@ -58,7 +58,7 @@
                         android:background="#D8D8D8" />
 
                     <EditText
-                        android:id="@+id/edit_password"
+                        android:id="@+id/edit_password_login"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#00000000"
@@ -94,7 +94,7 @@
                     android:orientation="vertical" >
 
                     <EditText
-                        android:id="@id/edit_username"
+                        android:id="@+id/edit_username_signup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#00000000"
@@ -108,7 +108,7 @@
                         android:background="#D8D8D8" />
 
                     <EditText
-                        android:id="@id/edit_password"
+                        android:id="@+id/edit_password_signup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#00000000"
@@ -122,7 +122,7 @@
                         android:background="#D8D8D8" />
 
                     <EditText
-                        android:id="@+id/edit_email"
+                        android:id="@+id/edit_email_signup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#00000000"
