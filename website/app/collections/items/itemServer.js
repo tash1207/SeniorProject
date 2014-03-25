@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 	
-	var moduleName = 'app/collections/items/itemServer',
+	var moduleName = 'app.item.itemServer',
 	
 		angularDependencies = [];
 	

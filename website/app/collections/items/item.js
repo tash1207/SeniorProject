@@ -1,18 +1,22 @@
 (function() {
 	'use strict';
 	
-	var moduleName = 'app/collections/items',
+	var moduleName = 'app.item',
 	
 	angularDependencies = [
-		'app/collections/items/new',
-		'app/collections/items/itemServer'
+		'ui.router',
+		'ui.bootstrap',
+		'app.item.new',
+		'app.item.itemServer'
 		// fill in dependencies later
 		];
 	
 	define([
 		'angular',
-		'app/collections/items/new',
-		'app/collections/items/itemServer'
+		'ui.router',
+		'ui.bootstrap',
+		'app.item.new',
+		'app.item.itemServer'
 		// fill in as they come
 		], function(angular) {
 			var module = angular.module(moduleName, angularDependencies);
@@ -20,10 +24,10 @@
 			module.config(['$stateProvider',
 				function($stateProvider) {
 					
-					$stateProvider.state('app/collections/items', {
+					$stateProvider.state('app.item', {
 						controller: 'itemController',
 						url: '/collections/items/',
-						templateUrl: 'collections/items/items.html',
+						templateUrl: '/items/items.html',
 						resolve: {
 							'item': ['itemServer',
 								function(itemServer) {
@@ -40,6 +44,7 @@
 					console.log('itemController', item);
 					
 					//add functionality here
+					$scope.item = item.data;
 					
 					}
 				]);

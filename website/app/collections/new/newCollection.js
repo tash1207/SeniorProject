@@ -1,17 +1,20 @@
 (function() {
 	'use strict';
 	
-	var moduleName = 'app/collections/new',
+	var moduleName = 'app.collections.new',
 	
 		angularDependencies = [
-			
-			'app/collections/collectionServer',
+			'ui.router',
+			'ui.bootstrap',
+			'app.collection.collectionServer',
 			// fill in
 			];
 	
 	define([
 		'angular',
-		'app/collections/collectionServer'
+		'ui.router',
+		'ui.bootstrap',
+		'app.collection.collectionServer'
 		], function(angular) {
 			
 			var module = angular.module(moduleName, angularDependencies);
@@ -19,7 +22,7 @@
 			module.config(['$stateProvider',
 				function($stateProvider) {
 					
-					$stateProvider.state('app/collections/new', {
+					$stateProvider.state('app.collections.new', {
 						controller: 'collectionNewController',
 						url: '/app/collections/new',
 						templateUrl: 'app/collections/collection_form.html'
@@ -48,6 +51,7 @@
 						collectionServer.create($scope.collection);
 						
 					
+				}
 				}
 			]);
 			

@@ -1,18 +1,22 @@
 (function() {
 	'use strict';
 	
-	var moduleName = 'app/collection',
+	var moduleName = 'app.collection',
 	
 	angularDependencies = [
-		'app/collection/new',
-		'app/collectionServer'
+		'ui.router',
+		'ui.bootstrap',
+		'app.collection.new',
+		'app.collection.collectionServer'
 		// fill in dependencies later
 		];
 	
 	define([
 		'angular',
-		'app/collection/new',
-		'app/collectionServer'
+		'ui.router',
+		'ui.bootstrap',
+		'app.collection.new',
+		'app.collection.collectionServer'
 		// fill in as they come
 		], function(angular) {
 			var module = angular.module(moduleName, angularDependencies);
@@ -20,9 +24,9 @@
 			module.config(['$stateProvider',
 				function($stateProvider) {
 					
-					$stateProvider.state('app/collection', {
+					$stateProvider.state('app.collection', {
 						controller: 'collectionController',
-						url: '/collections/',
+						url: '/collections',
 						templateUrl: 'collections/collections.html',
 						resolve: {
 							'collection': ['collectionServer',

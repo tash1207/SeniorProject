@@ -1,17 +1,20 @@
 (function() {
 	'use strict';
 	
-	var moduleName = 'app/colections/items/new',
+	var moduleName = 'app.item.new',
 	
 		angularDependencies = [
-			
-			'app/collections/items/itemServer',
+			'ui.router',
+			'app.item.itemServer',
+			'app.item'
 			// fill in
 			];
 	
 	define([
 		'angular',
-		'app/collections/items/itemServer'
+		'ui.router',
+		'app.item.itemServer',
+		'app.item'
 		], function(angular) {
 			
 			var module = angular.module(moduleName, angularDependencies);
@@ -19,10 +22,10 @@
 			module.config(['$stateProvider',
 				function($stateProvider) {
 					
-					$stateProvider.state('app/collections/items/new', {
+					$stateProvider.state('app.item.new', {
 						controller: 'itemNewController',
-						url: '/app/collections/items/new/',
-						templateUrl: '/app/collections/items/item_form.html'
+						url: 'collections/items/newItem/',
+						templateUrl: 'collections/items/item_form.html'
 					});
 				}
 			]);
@@ -44,6 +47,7 @@
 						itemServer.create($scope.item);
 						
 					
+					};
 				}
 			]);
 			
