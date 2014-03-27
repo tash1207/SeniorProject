@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 	
-	var moduleName = 'app.collections.new',
+	var moduleName = 'app.collection.new',
 	
 		angularDependencies = [
 			'ui.router',
@@ -22,17 +22,17 @@
 			module.config(['$stateProvider',
 				function($stateProvider) {
 					
-					$stateProvider.state('app.collections.new', {
+					$stateProvider.state('app.collection.new', {
 						controller: 'collectionNewController',
-						url: '/app/collections/new',
-						templateUrl: 'app/collections/collection_form.html'
+						url: 'collections/new',
+						templateUrl: 'collections/collection_form.html'
 					});
 				}
 			]);
 			
-			module.controller('itemNewController', ['$scope', '$state', 'collectionServer',
+			module.controller('collectionNewController', ['$scope', '$state', 'collectionServer',
 				function($scope,$state,collectionServer) {
-					console.log('collectionServer');
+					console.log('collectionNewController');
 					
 					$scope.collection = {
 						id: null,
@@ -59,4 +59,4 @@
 		});
 	
 	
-});
+})();

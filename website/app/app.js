@@ -8,8 +8,7 @@
 		'ui.bootstrap',
 		'app.item',
 		'app.collection',
-		'app.collection',
-		'app.item.new'
+		'app.user'
 		// fill in
 		];
 		
@@ -18,8 +17,8 @@
 		'ui.router',
 		'ui.bootstrap',
 		'app.item',
-		'app.item.new',
-		'app.collection'
+		'app.collection',
+		'app.user'
 		//fill in
 	], function(angular) {
 	
@@ -29,18 +28,19 @@
 		function($stateProvider, $urlRouterProvider) {
 			 
 			 $urlRouterProvider.otherwise('');
-			 $urlRouterProvider.when('', '/item');
-			 $urlRouterProvider.when('', '/collection');
+			 //$urlRouterProvider.when('', '/collection');
 			 
 			 $stateProvider.state('app', {
 				url: '',
 				views: {
-					'main': {
-						templateUrl: '/main/_main.html'
-					},
+					
 					'nav' : {
-						templateUrl: '/nav/_nav.html'
+						templateUrl: 'nav/nav.html'
+					},
+					'main': {
+						templateUrl: 'main/main.html'
 					}
+					
 				}
 			});
 		}

@@ -1475,11 +1475,11 @@ textarea.input-lg, .input-group-lg > textarea.form-control, .input-group-lg > te
 
 .btn-success {
   color: #fff;
-  background-color: #43ac6a;
-  border-color: #3c9a5e; }
+  background-color: #0099cc;
+  border-color: #006699; }
   .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active {
     color: #fff;
-    background-color: #388f57;
+    background-color: #006699;
     border-color: #2b6e42; }
   .open .btn-success.dropdown-toggle {
     color: #fff;
@@ -2257,7 +2257,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
       margin-right: 15px; } }
 
 .navbar-default {
-  background-color: #373737;
+  background-color: #663399;
   border-color: #262626; }
   .navbar-default .navbar-brand {
     color: #fff; }
@@ -2582,11 +2582,11 @@ a.list-group-item.active > .badge, .nav-pills > .active > a > .badge {
     color: inherit; }
 
 .alert-success {
-  background-color: #43ac6a;
-  border-color: #3c9a5e;
+  background-color: #006699;
+  border-color: #006699;
   color: #fff; }
   .alert-success hr {
-    border-top-color: #358752; }
+    border-top-color: #006699; }
   .alert-success .alert-link {
     color: #e6e6e6; }
 

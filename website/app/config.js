@@ -3,6 +3,9 @@ require.config({
 	deps: ['angular', 'app'],
 	paths: {
 	
+		'app.user' : 'user/user',
+		'app.user.userServer' : 'user/userServer',
+		'app.user.new' : 'user/newUser/newUser',
 		'app.item' : 'collections/items/item',
 		'app.collection' : 'collections/collection',
 		'app.item.new' : 'collections/items/newItem/newItem',

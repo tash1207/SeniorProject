@@ -31,7 +31,7 @@
 						resolve: {
 							'collection': ['collectionServer',
 								function(collectionServer) {
-									collectionServer.get();
+									return collectionServer.get();
 								}
 							]
 						}
@@ -40,7 +40,7 @@
 			]);
 			
 			module.controller('collectionController', ['$scope','$state','collectionServer','collection',
-				function($scope,$state,collectionServer,item) {
+				function($scope,$state,collectionServer,collection) {
 					console.log('collectionController', collection);
 					
 					//add functionality here

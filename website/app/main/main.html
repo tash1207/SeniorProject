@@ -1,0 +1,33 @@
+<div class="app clearfix">
+	<nav class="side-nav col-md-3">
+		<ul class="nav nav-pills nav-stacked">
+			<li ng-class="{ 'active': $state.includes('app.user')}">
+				 <figure class="nav-icon">
+                    <i class="fa fa-user"></i>
+                </figure>
+				<div class="nav-body is-clickable">
+					<a href="#" ui-sref="app.user">Profile</a>
+			</li>
+			
+			<li ng-class="{ 'active': $state.includes('app.collection')}">
+				 <figure class="nav-icon">
+                    <i class="fa fa-bars"></i>
+                </figure>
+				<div class="nav-body is-clickable">
+					<a href="#" ui-sref="app.collection">Collections</a>
+				</div>
+			</li>
+			
+			<li ng-class="{ 'active': $state.includes('app.item')}">
+				 <figure class="nav-icon">
+                    <i class="fa fa-picture-o"></i>
+                </figure>
+				<div class="nav-body is-clickable">
+					<a href="#" ui-sref="app.item">Items</a>
+				</div>
+			</li>
+		</ul>
+	</nav>
+	
+	<div class="primary-container col-md-9" ui-view></div>
+</div>

@@ -27,11 +27,11 @@
 					$stateProvider.state('app.item', {
 						controller: 'itemController',
 						url: '/collections/items/',
-						templateUrl: '/items/items.html',
+						templateUrl: 'collections/items/item.html',
 						resolve: {
 							'item': ['itemServer',
 								function(itemServer) {
-									itemServer.get();
+									return itemServer.get();
 								}
 							]
 						}
@@ -45,6 +45,17 @@
 					
 					//add functionality here
 					$scope.item = item.data;
+					
+					$scope.deleteItem = function(id) {
+						var index = _.findIndex($scope.item, {
+							'_id': id
+						});
+						
+						itemServer.delete(id).then(function(response) {
+							console.log(response);
+							$scope.item.splice(index,1);
+						});
+					};
 					
 					}
 				]);

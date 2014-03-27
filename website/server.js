@@ -3,6 +3,8 @@
 var express = require('express');
 var mongoose = require('mongoose');
 require('express-namespace');
+var path = require('path');
+var	fs = require('fs');
 
 var app = express();
 
@@ -13,26 +15,27 @@ app.configure(function() {
 	app.use(express.static(__dirname + '/app'));
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
+	app.use(express.multipart());
 	app.use(express.methodOverride());
 });
 
 //model code
-var Item = mongoose.model('item', {
+var Item = mongoose.model('Item', {
 	id: Number,
-	collection_id: Number,
+	collection_id: String,
 	title: String,
 	description: String,
 	picture: String
 	}
 );
 
-var Comment = mongoose.model('comment', {
+var Comment = mongoose.model('Comment', {
 	userName: String,
 	text: String
 	}
 );
 
-var Collection = mongoose.model('collection', {
+var Collection = mongoose.model('Collection', {
 	id: Number,
 	title: String,
 	description: String,
@@ -44,11 +47,11 @@ var Collection = mongoose.model('collection', {
 	}
 );
 
-var User = mongoose.model('user', {
+var User = mongoose.model('User', {
 	id: Number,
 	userName: String,
 	email: String,
-	passWord: String,
+	password: String,
 	displayName: String,
 	picture: String
 	}
@@ -79,6 +82,26 @@ app.namespace('/api', function() {
 			});
 		});
 		
+	//image upload
+	/*
+	app.post('/upload', function(req, res) {
+		console.log(req.files.uploadFile);
+		res.send('sweet!');
+		
+		var tempPath = request.files.uploadFile.path;
+		var newPath = './public/images/' + req.files.uploadFile.name;
+		fs.rename(tempPath, newPath, function(err) {
+			if (err) throw err;
+			
+			fs.unlink(tempPath, function() {
+				if (err) throw err;
+				response.send('File uploaded');
+			});
+		});
+			
+			
+	}); */
+		
 	//create an item
 	app.post('/item', function(request, response) {
 		Item.create( {
@@ -99,6 +122,7 @@ app.namespace('/api', function() {
 					response.json(item);
 					});
 				});
+				
 			});
 			
 	//update an item		
@@ -182,9 +206,71 @@ app.namespace('/api', function() {
 			});
 		});
 	});
+	// user stuff
+	app.get('/user/:user_id', function(request,response) {
+		User.findById(request.params.user_id).exec(function(error, user) {
+			if (error) {
+				response.send(error);
+			}
+			response.json(user);
+			});
+		});
+		
+	//create a user
+	app.post('/user', function(request, response) {
+		User.create( {
+			id: request.body.id,
+			userName: request.body.userName,
+			email: request.body.email,
+			password: request.body.password,
+			displayName: request.body.displayName,
+			picture: request.body.picture
+			}, function(error, user) {
+				if (error) {
+					response.send(error);
+				}
+				
+				Item.findById(user._id).exec(function(error, user) {
+					if (error) {
+						response.send(error);
+					}
+					response.json(user);
+					});
+				});
+			});
+			
+	//update a user		
+	app.post('/user/:user_id', function(request,response) {
+		User.findByIdAndUpdate(request.params.user_id, {
+			id: request.body.id,
+			userName: request.body.userName,
+			email: request.body.email,
+			password: request.body.password,
+			displayName: request.body.displayName,
+			picture: request.body.picture
+			}, function(error, item) {
+				if (error) {
+					response.send(error);
+				}
+				response.json(user);
+			});
+		});
+		
+	//delete an item
+	app.delete('/user/:user_id', function(request,response) {
+		User.remove ( {
+			_id : request.params.user_id
+			}, function (error, user) {
+				if (error) {
+					response.send(error);
+				}
+				response.json( {
+					'status': 'success'
+				});
+			});
+		});
 });
-
-	//add user and comment routes
+	//add comment routes
 
 	app.get('*', function(request, response) {
 		response.sendfile('./app/index.html');

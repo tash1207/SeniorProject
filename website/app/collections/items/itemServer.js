@@ -16,6 +16,7 @@
 					var itemServer = {};
 					
 					itemServer.get = function(id) {
+						id = id || '';
 						return $http.get('/api/item/' + id);
 					};
 					
@@ -30,6 +31,10 @@
 					itemServer.delete = function(id) {
 						return $http.delete('/api/item/' + id);
 					};
+					/*
+					itemServer.addPic = function(uploadFile) {
+						return $http.post('/api/upload/', uploadFile);
+					};*/
 					
 					return itemServer;
 				
@@ -43,4 +48,4 @@
 			});
 		
 	
-});
+})();
