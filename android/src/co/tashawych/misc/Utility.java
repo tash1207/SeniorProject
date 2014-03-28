@@ -1,5 +1,7 @@
 package co.tashawych.misc;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View.MeasureSpec;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -14,6 +16,14 @@ public class Utility {
 	public static final String cat_stamp = "Stamps";
 	
 	public static final String URL = "http://tashawych.co:8080";
+	
+	public static SharedPreferences prefs(Context context) {
+		return context.getSharedPreferences("Collector", Context.MODE_PRIVATE);
+	}
+	
+	public static String getUsername(Context context) {
+		return prefs(context).getString("username", "");
+	}
 	
 	public static int getListViewHeight(ListView list) {
 		ListAdapter adapter = list.getAdapter();

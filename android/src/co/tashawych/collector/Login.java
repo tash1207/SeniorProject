@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
@@ -43,7 +42,6 @@ public class Login extends Activity {
 		
 		try {
 			response = new login_post(username, password).execute().get();
-			Log.d("btn_login response", response);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
@@ -51,6 +49,7 @@ public class Login extends Activity {
 		}
 		
 		if (!response.equals("")) {
+			Utility.prefs(this).edit().putString("username", response).commit();
 			Intent profile = new Intent(this, Profile.class);
 			startActivity(profile);
 		}
@@ -77,7 +76,6 @@ public class Login extends Activity {
 		
 		try {
 			response = new signup_post(username, password, email).execute().get();
-			Log.d("btn_signup response", response);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
@@ -86,6 +84,7 @@ public class Login extends Activity {
 		
 		if (!response.equals("")) {
 			// TODO from signup, pass a first_time boolean to profile to show mini tutorial
+			Utility.prefs(this).edit().putString("username", response).commit();
 			Intent profile = new Intent(this, Profile.class);
 			startActivity(profile);
 		}
