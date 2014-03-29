@@ -5,7 +5,7 @@ This is the code for the backend of the application which utilizes MongoDB, a no
 
 # API Documentation
 
-## <font color='blue'>/login</font>
+## /login
 
 The user logs into their account.
 
@@ -32,7 +32,7 @@ If not:
 
 + empty string
 
-## <font color='blue'>/signup</font>
+## /signup
 
 The user signs up for an account.
 
@@ -59,3 +59,33 @@ If successful:
 If not:
 
 + error message
+
+## /addCollection
+
+Creates a new collection.
+
+### URL
+
+http://tashawych.co:8080/addCollection
+
+### HTTP method
+
+POST
+
+### Parameters
+
++ title
++ description
++ category
++ picture (optional)
++ username
+
+### Response
+
+If successful:
+
++ collection_id
+
+If not:
+
++ empty string
