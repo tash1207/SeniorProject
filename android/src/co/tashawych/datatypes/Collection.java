@@ -6,7 +6,7 @@ import android.database.Cursor;
 
 public class Collection {
 	
-	private int id;
+	private String id;
 	private String username;
 	private String title;
 	private String description;
@@ -15,10 +15,9 @@ public class Collection {
 	private String picture;
 	private int num_favorites;
 	
-	public Collection(int id, String username, String title, String description, String category, 
+	public Collection(String username, String title, String description, String category, 
 			boolean is_private, String picture) {
-		this.id = id;
-		this.username = username; //APIHandler.getUsername();
+		this.username = username;
 		this.title = title;
 		this.description = description;
 		this.category = category;
@@ -27,7 +26,7 @@ public class Collection {
 	}
 	
 	public Collection(Cursor c) {
-		this.id = c.getInt(c.getColumnIndex(CollectionDB.COL_ID));
+		this.id = c.getString(c.getColumnIndex(CollectionDB.COL_ID));
 		this.username = c.getString(c.getColumnIndex(CollectionDB.COL_USERNAME));
 		this.title = c.getString(c.getColumnIndex(CollectionDB.COL_TITLE));
 		this.description = c.getString(c.getColumnIndex(CollectionDB.COL_DESCRIPTION));
@@ -52,7 +51,7 @@ public class Collection {
 	
 	// GETTERS AND SETTERS
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -82,6 +81,10 @@ public class Collection {
 	
 	public int getNumFavorites() {
 		return num_favorites;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	public void setTitle(String title) {

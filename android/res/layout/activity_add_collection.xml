@@ -20,22 +20,6 @@
             android:orientation="vertical" >
 
             <EditText
-                android:id="@+id/edit_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:hint="ID"
-                android:inputType="number"
-                android:maxLength="50"
-                android:padding="10dp"
-                android:textSize="18sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#44000000" />
-
-            <EditText
                 android:id="@+id/edit_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

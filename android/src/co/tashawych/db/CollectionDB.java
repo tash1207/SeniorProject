@@ -18,7 +18,7 @@ public class CollectionDB {
 	
 	public static void createTable(SQLiteDatabase db) {
 		String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(" 
-				+ COL_ID + " INTEGER PRIMARY KEY, " 
+				+ COL_ID + " TEXT PRIMARY KEY, " 
 				+ COL_USERNAME + " TEXT, " 
 				+ COL_TITLE + " TEXT, "
 				+ COL_DESCRIPTION + " TEXT, "

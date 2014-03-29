@@ -48,7 +48,7 @@ public class HttpRequest {
 			BufferedReader reader = new BufferedReader(isReader);
 			StringBuilder builder = new StringBuilder();
 			for (String line = null; (line = reader.readLine()) != null;) {
-				builder.append(line).append("\n");
+				builder.append(line);
 			}
 			str_response = builder.toString();
 			Log.d("POST response", str_response);
