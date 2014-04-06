@@ -19,6 +19,8 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="category">Category</string>
+    <string name="comments">Comments</string>
+    <string name="favorites">Favorites</string>
 
     <string-array name="collection_categories">
         <item>Books</item>

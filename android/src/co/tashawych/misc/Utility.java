@@ -3,6 +3,8 @@ package co.tashawych.misc;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
+import co.tashawych.collector.R;
+
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -43,6 +45,33 @@ public class Utility {
 		list.measure(MeasureSpec.makeMeasureSpec(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED), 
 				MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
 		return list.getMeasuredHeight() * adapter.getCount() + (list.getDividerHeight() * adapter.getCount());
+	}
+	
+	public static int getPictureForCategory(String cat) {
+		if (cat.equals(Utility.cat_book)) {
+			return R.drawable.ic_book;
+		}
+		else if (cat.equals(Utility.cat_card)) {
+			return R.drawable.ic_card;
+		}
+		else if (cat.equals(Utility.cat_coin)) {
+			return R.drawable.ic_coin;
+		}
+		else if (cat.equals(Utility.cat_electronic)) {
+			return R.drawable.ic_electronic;
+		}
+		else if (cat.equals(Utility.cat_figurine)) {
+			return R.drawable.ic_figurine;
+		}
+		else if (cat.equals(Utility.cat_media)) {
+			return R.drawable.ic_media;
+		}
+		else if (cat.equals(Utility.cat_stamp)) {
+			return R.drawable.ic_stamp;
+		}
+		else {
+			return R.drawable.logo_no_bg;
+		}
 	}
 
 	public static boolean doCrop(Context context, Uri mImageCaptureUri,

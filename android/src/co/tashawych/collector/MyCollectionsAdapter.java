@@ -1,14 +1,16 @@
 package co.tashawych.collector;
 
-import co.tashawych.db.CollectionDB;
-import co.tashawych.misc.Utility;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import co.tashawych.db.CollectionDB;
+import co.tashawych.misc.Utility;
 
 public class MyCollectionsAdapter extends SimpleCursorAdapter {
 	Context context;
@@ -57,31 +59,21 @@ public class MyCollectionsAdapter extends SimpleCursorAdapter {
         }
         else {
         	String cat = cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY));
-	        if (cat.equals(Utility.cat_book)) {
-	        	holder.picture.setImageResource(R.drawable.ic_book);
-	        }
-	        else if (cat.equals(Utility.cat_card)) {
-	        	holder.picture.setImageResource(R.drawable.ic_card);
-	        }
-	        else if (cat.equals(Utility.cat_coin)) {
-	        	holder.picture.setImageResource(R.drawable.ic_coin);
-	        }
-	        else if (cat.equals(Utility.cat_electronic)) {
-	        	holder.picture.setImageResource(R.drawable.ic_electronic);
-	        }
-	        else if (cat.equals(Utility.cat_figurine)) {
-	        	holder.picture.setImageResource(R.drawable.ic_figurine);
-	        }
-	        else if (cat.equals(Utility.cat_media)) {
-	        	holder.picture.setImageResource(R.drawable.ic_media);
-	        }
-	        else if (cat.equals(Utility.cat_stamp)) {
-	        	holder.picture.setImageResource(R.drawable.ic_stamp);
-	        }
-	        else {
-	        	holder.picture.setImageResource(R.drawable.logo_no_bg);
-	        }
+        	holder.picture.setImageResource(Utility.getPictureForCategory(cat));
         }
+
+		OnClickListener listener = new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent view_collection = new Intent(context, ViewCollection.class);
+				cursor.moveToPosition(position);
+				view_collection.putExtra("id", cursor.getString(cursor.getColumnIndex(CollectionDB.COL_ID)));
+				context.startActivity(view_collection);
+			}
+		};
+
+		convertView.setOnClickListener(listener);
 		
 		return convertView;
 	}

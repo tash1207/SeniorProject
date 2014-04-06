@@ -44,6 +44,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     	CollectionDB.insert(db, collection);
     }
     
+    public Collection getCollection(String id) {
+    	return CollectionDB.getCollection(db, id);
+    }
+    
     public Cursor getCollectionsByUserId(String username) {
     	return CollectionDB.getCollectionsByUserId(db, username);
     }

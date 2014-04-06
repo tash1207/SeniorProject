@@ -36,5 +36,11 @@ public class CollectionDB {
 	public static Cursor getCollectionsByUserId(SQLiteDatabase db, String username) {
 		return db.query(TABLE_NAME, null, COL_USERNAME + "=?", new String[]{username}, null, null, COL_TITLE + " ASC");
 	}
+	
+	public static Collection getCollection(SQLiteDatabase db, String id) {
+		Cursor c = db.query(TABLE_NAME, null, COL_ID + "=?", new String[]{id}, null, null, null);
+		c.moveToFirst();
+		return new Collection(c);
+	}
 
 }
