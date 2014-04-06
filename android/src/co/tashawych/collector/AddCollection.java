@@ -11,25 +11,42 @@ import org.apache.http.message.BasicNameValuePair;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import co.tashawych.datatypes.Collection;
 import co.tashawych.db.DatabaseHelper;
 import co.tashawych.http.HttpRequest;
 import co.tashawych.misc.Utility;
 
-public class AddCollection extends Activity {
+public class AddCollection extends BaseActivity {
+	Collection col;
+	String picture = "";
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_collection);
 	}
+	
+	public void uploadPicture(View v) {
+		Intent uploadPic = new Intent(Intent.ACTION_PICK, 
+				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		startActivityForResult(Intent.createChooser(uploadPic, "Upload photo using:"), UPLOAD_PIC);
+	}
 
 	public void selectCategory(View v) {
+		final ImageView edit_picture = (ImageView) findViewById(R.id.edit_picture);
 		final Button edit_category = (Button) findViewById(R.id.edit_category);
 		final String[] categories = getResources().getStringArray(R.array.collection_categories);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -37,6 +54,36 @@ public class AddCollection extends Activity {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						edit_category.setText(categories[which]);
+						if (picture.equals("")) {
+							switch (which) {
+							case 0:
+								edit_picture.setImageResource(R.drawable.ic_book);
+								break;
+							case 1:
+								edit_picture.setImageResource(R.drawable.ic_card);
+								break;
+							case 2:
+								edit_picture.setImageResource(R.drawable.ic_coin);
+								break;
+							case 3:
+								edit_picture.setImageResource(R.drawable.ic_electronic);
+								break;
+							case 4:
+								edit_picture.setImageResource(R.drawable.ic_figurine);
+								break;
+							case 5:
+								edit_picture.setImageResource(R.drawable.ic_media);
+								break;
+							case 6:
+								edit_picture.setImageResource(R.drawable.ic_stamp);
+								break;
+							case 7:
+								edit_picture.setImageResource(R.drawable.logo_no_bg);
+								break;
+							default:
+								break;
+							}
+						}
 					}
 				});
 		AlertDialog dialog = builder.create();
@@ -58,8 +105,8 @@ public class AddCollection extends Activity {
 		String category = edit_category.getText().toString();
 		if (category.equals("Other")) category = "";
 
-		Collection col = new Collection(Utility.prefs(AddCollection.this).getString("username", ""), 
-				title, description, category, false, "");
+		col = new Collection(Utility.prefs(AddCollection.this).getString("username", ""), 
+				title, description, category, false, picture);
 		
 		String col_id = "";
 		
@@ -111,6 +158,51 @@ public class AddCollection extends Activity {
 			return null;
 		}
 		
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, final Intent data) {
+		if (resultCode == Activity.RESULT_OK) {
+			if (requestCode == UPLOAD_PIC && data.getData() != null) {
+				Uri selectedImage = data.getData();
+
+				// Check if user has photo cropper
+				Intent intent = new Intent("com.android.camera.action.CROP");
+				intent.setType("image/*");
+				List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, 0);
+				int size = list.size();
+
+				// If not, upload image without cropping it
+				if (size == 0) {
+					String[] filePathColumn = { MediaStore.Images.Media.DATA };
+					Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+					cursor.moveToFirst();
+
+					int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+					String filePath = cursor.getString(columnIndex);
+					cursor.close();
+
+					Bitmap uploaded_photo = BitmapFactory.decodeFile(filePath);
+					final ImageView edit_picture = (ImageView) findViewById(R.id.edit_picture);
+					edit_picture.setImageBitmap(uploaded_photo);
+				}
+
+				else {
+					Utility.doCrop(this, selectedImage, 150, 150, 1, 1, AFTER_CROP);
+				}
+			}
+			// AFTER CROP
+			else if (requestCode == AFTER_CROP) {
+				Bundle extras = data.getExtras();
+				if (extras != null) {
+					Bitmap uploaded_photo = extras.getParcelable("data");
+					picture = Utility.getBitmapAsBase64String(uploaded_photo);
+					ImageView photo = (ImageView) findViewById(R.id.edit_picture);
+					photo.setImageBitmap(uploaded_photo);
+				}
+			}
+
+		}
 	}
 
 }

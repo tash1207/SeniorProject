@@ -1,6 +1,5 @@
 package co.tashawych.collector;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.widget.TextView;
 import co.tashawych.db.DatabaseHelper;
 import co.tashawych.misc.Utility;
 
-public class Profile extends Activity {
+public class Profile extends BaseActivity {
 	
 	ListView lvw_my_collections;
 	MyCollectionsAdapter adapter;

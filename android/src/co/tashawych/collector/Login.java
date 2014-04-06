@@ -29,6 +29,12 @@ public class Login extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
+		if (!Utility.getUsername(this).equals("")) {
+			Intent profile = new Intent(this, Profile.class);
+			startActivity(profile);
+			finish();
+		}
 	}
 
 	public void btn_login_clicked(View v) {

@@ -51,29 +51,36 @@ public class MyCollectionsAdapter extends SimpleCursorAdapter {
         cursor.moveToPosition(position);
         holder.title.setText(cursor.getString(cursor.getColumnIndex(CollectionDB.COL_TITLE)));
         
-        if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals(Utility.cat_book)) {
-        	holder.picture.setImageResource(R.drawable.ic_book);
-        }
-        else if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals(Utility.cat_card)) {
-        	holder.picture.setImageResource(R.drawable.ic_card);
-        }
-        else if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals(Utility.cat_coin)) {
-        	holder.picture.setImageResource(R.drawable.ic_coin);
-        }
-        else if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals(Utility.cat_electronic)) {
-        	holder.picture.setImageResource(R.drawable.ic_electronic);
-        }
-        else if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals(Utility.cat_figurine)) {
-        	holder.picture.setImageResource(R.drawable.ic_figurine);
-        }
-        else if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals(Utility.cat_media)) {
-        	holder.picture.setImageResource(R.drawable.ic_media);
-        }
-        else if (cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY)).equals(Utility.cat_stamp)) {
-        	holder.picture.setImageResource(R.drawable.ic_stamp);
+        String imgString = cursor.getString(cursor.getColumnIndex(CollectionDB.COL_PICTURE));
+        if (!imgString.equals("")) {
+        	holder.picture.setImageBitmap(Utility.getBitmapFromString(imgString));
         }
         else {
-        	holder.picture.setImageResource(R.drawable.logo_no_bg);
+        	String cat = cursor.getString(cursor.getColumnIndex(CollectionDB.COL_CATEGORY));
+	        if (cat.equals(Utility.cat_book)) {
+	        	holder.picture.setImageResource(R.drawable.ic_book);
+	        }
+	        else if (cat.equals(Utility.cat_card)) {
+	        	holder.picture.setImageResource(R.drawable.ic_card);
+	        }
+	        else if (cat.equals(Utility.cat_coin)) {
+	        	holder.picture.setImageResource(R.drawable.ic_coin);
+	        }
+	        else if (cat.equals(Utility.cat_electronic)) {
+	        	holder.picture.setImageResource(R.drawable.ic_electronic);
+	        }
+	        else if (cat.equals(Utility.cat_figurine)) {
+	        	holder.picture.setImageResource(R.drawable.ic_figurine);
+	        }
+	        else if (cat.equals(Utility.cat_media)) {
+	        	holder.picture.setImageResource(R.drawable.ic_media);
+	        }
+	        else if (cat.equals(Utility.cat_stamp)) {
+	        	holder.picture.setImageResource(R.drawable.ic_stamp);
+	        }
+	        else {
+	        	holder.picture.setImageResource(R.drawable.logo_no_bg);
+	        }
         }
 		
 		return convertView;
