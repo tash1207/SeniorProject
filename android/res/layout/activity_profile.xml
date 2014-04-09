@@ -6,6 +6,22 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/dark_purple" >
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@string/menu"
+            android:onClick="menuClicked"
+            android:padding="6dp"
+            android:src="@drawable/icon_menu" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="92dp"
         android:background="@color/light_grey" >
 
@@ -58,8 +74,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:padding="12dp" >
 
             <TextView
                 android:id="@+id/profile_my_collections"

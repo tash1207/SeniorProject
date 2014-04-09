@@ -3,8 +3,6 @@ package co.tashawych.misc;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
-import co.tashawych.collector.R;
-
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -16,10 +14,13 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Base64;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View.MeasureSpec;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import co.tashawych.collector.R;
 
 public class Utility {
 	public static final String cat_book = "Books";
@@ -45,6 +46,18 @@ public class Utility {
 		list.measure(MeasureSpec.makeMeasureSpec(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED), 
 				MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
 		return list.getMeasuredHeight() * adapter.getCount() + (list.getDividerHeight() * adapter.getCount());
+	}
+	
+	public static int getScreenWidth(Activity activity) {
+		 DisplayMetrics metrics = new DisplayMetrics();
+			activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+			return metrics.widthPixels;
+	}
+	
+	public static int getPixels(Context context, float dips) {
+		int pixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+	            dips, context.getResources().getDisplayMetrics());
+		return pixels;
 	}
 	
 	public static int getPictureForCategory(String cat) {

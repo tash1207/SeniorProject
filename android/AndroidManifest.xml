@@ -27,6 +27,7 @@
         <activity android:name="co.tashawych.collector.Profile" />
         <activity android:name="co.tashawych.collector.AddCollection" />
         <activity android:name="co.tashawych.collector.ViewCollection" />
+        <activity android:name="co.tashawych.collector.BrowseCollections" />
     </application>
 
 </manifest>

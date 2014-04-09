@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_grey"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/menu_username"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/light_purple"
+        android:padding="12dp"
+        android:text="Logged in as tash1207"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#88FFFFFF" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/grey_to_blue_selector"
+        android:clickable="true"
+        android:onClick="menuProfile"
+        android:padding="12dp"
+        android:text="My Profile"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#88FFFFFF" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/grey_to_blue_selector"
+        android:clickable="true"
+        android:onClick="menuBrowse"
+        android:padding="12dp"
+        android:text="Browse Collections"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#88FFFFFF" />
+
+</LinearLayout>

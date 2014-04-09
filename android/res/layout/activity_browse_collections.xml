@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/dark_purple" >
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_alignParentLeft="true"
+            android:padding="6dp"
+            android:src="@drawable/icon_menu"
+            android:contentDescription="@string/menu"
+            android:onClick="menuClicked" />
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_alignParentRight="true"
+            android:padding="6dp"
+            android:src="@drawable/icon_search"
+            android:contentDescription="@string/search"
+            android:onClick="searchClicked" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lvw_browse_collections"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

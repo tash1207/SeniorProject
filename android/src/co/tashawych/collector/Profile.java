@@ -16,6 +16,7 @@ public class Profile extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
+		setupSideMenu();
 	}
 	
 	public void onStart() {
@@ -32,6 +33,10 @@ public class Profile extends BaseActivity {
 		
 		name.setText("Natalya Dominika Hankewych");
 		num.setText(String.valueOf(adapter.getCount()));
+	}
+	
+	public void menuClicked(View v) {
+		menu.showMenu();
 	}
 
 	public void btn_create_collection_clicked(View v) {

@@ -100,7 +100,8 @@ public class Login extends Activity {
 	}
 
 	public void btn_browse_clicked(View v) {
-		Toast.makeText(this, "Enter Browse Collections screen", Toast.LENGTH_SHORT).show();
+		Intent browse = new Intent(this, BrowseCollections.class);
+		startActivity(browse);
 	}
 	
 	public void btn_bottom_signup_clicked(View v) {

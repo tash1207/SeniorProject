@@ -33,6 +33,10 @@ public class CollectionDB {
 		db.insert(TABLE_NAME, null, collection.toContentValues());
 	}
 	
+	public static Cursor getCollections(SQLiteDatabase db) {
+		return db.query(TABLE_NAME, null, null, null, null, null, COL_FAVORITES + " ASC");
+	}
+	
 	public static Cursor getCollectionsByUserId(SQLiteDatabase db, String username) {
 		return db.query(TABLE_NAME, null, COL_USERNAME + "=?", new String[]{username}, null, null, COL_TITLE + " ASC");
 	}
