@@ -13,6 +13,7 @@
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_alignParentLeft="true"
+            android:background="@drawable/transparent_purple_selector"
             android:contentDescription="@string/menu"
             android:onClick="menuClicked"
             android:padding="6dp"
