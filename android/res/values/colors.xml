@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="light_grey">#D8D8D8</color>
     <color name="dark_purple">#6300AB</color>
     <color name="light_purple">#747DC8</color>
-    <color name="light_grey">#D8D8D8</color>
-    <color name="green">#279700</color>
+    <color name="dark_blue">#226EC8</color>
+    <color name="light_blue">#9CD8F1</color>
+    <color name="dark_green">#279700</color>
+    <color name="light_green">#BFE366</color>
+    <color name="dark_red">#E12727</color>
+    <color name="light_red">#ED9C9F</color>
 
 </resources>

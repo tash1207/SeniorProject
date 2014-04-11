@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import co.tashawych.misc.Utility;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -51,8 +52,10 @@ public class BaseActivity extends Activity {
 		// menu.setShadowWidth(Utility.getPixels(this, 10));
 		
 		TextView username = (TextView) findViewById(R.id.menu_username);
+
 		if (Utility.getUsername(this).equals("")) {
 			username.setText("Login");
+			username.setBackgroundResource(R.drawable.selector_blue);
 			username.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
@@ -62,6 +65,10 @@ public class BaseActivity extends Activity {
 					startActivity(login);
 				}
 			});
+			findViewById(R.id.menu_profile).setVisibility(View.GONE);
+			findViewById(R.id.menu_profile_divider).setVisibility(View.GONE);
+			findViewById(R.id.menu_logout).setVisibility(View.GONE);
+			findViewById(R.id.menu_logout_divider).setVisibility(View.GONE);
 		}
 		else {
 			username.setText("Logged in as " + Utility.getUsername(this));
@@ -72,14 +79,30 @@ public class BaseActivity extends Activity {
 		menu.showContent();
 		Intent profile = new Intent(this, Profile.class);
 		profile.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		profile.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		profile.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		startActivity(profile);
+		overridePendingTransition(0, 0);
 	}
 	
 	public void menuBrowse(View v) {
 		menu.showContent();
 		Intent browse = new Intent(this, BrowseCollections.class);
 		browse.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		browse.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		browse.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		startActivity(browse);
+		overridePendingTransition(0, 0);
+	}
+	
+	public void menuSettings(View v) {
+		Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+	}
+
+	public void menuLogout(View v) {
+		Utility.prefs(this).edit().putString("username", "").commit();
+		startActivity(new Intent(this, Login.class));
+		finish();
 	}
 
 }

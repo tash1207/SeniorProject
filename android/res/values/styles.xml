@@ -31,4 +31,24 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="side_menu_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/selector_red</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="header_app_name_text">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/light_grey</item>
+        <item name="android:shadowColor">@android:color/black</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">.01</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
 </resources>

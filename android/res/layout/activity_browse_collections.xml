@@ -13,19 +13,27 @@
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_alignParentLeft="true"
-            android:padding="6dp"
-            android:src="@drawable/icon_menu"
             android:contentDescription="@string/menu"
-            android:onClick="menuClicked" />
+            android:onClick="menuClicked"
+            android:padding="6dp"
+            android:src="@drawable/icon_menu" />
+
+        <TextView
+            style="@style/header_app_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/app_name" />
 
         <ImageView
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_alignParentRight="true"
-            android:padding="6dp"
-            android:src="@drawable/icon_search"
             android:contentDescription="@string/search"
-            android:onClick="searchClicked" />
+            android:onClick="searchClicked"
+            android:padding="6dp"
+            android:src="@drawable/icon_search" />
     </RelativeLayout>
 
     <ListView

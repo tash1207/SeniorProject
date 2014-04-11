@@ -9,7 +9,6 @@
     <string name="signup">Sign Up</string>
     <string name="browse">Browse</string>
     <string name="or">- or -</string>
-    <string name="logout">Log Out</string>
     
     <string name="name">Name</string>
     <string name="picture">Picture</string>
@@ -23,6 +22,10 @@
     <string name="favorites">Favorites</string>
     
     <string name="menu">Menu</string>
+    <string name="my_profile">My Profile</string>
+    <string name="browse_collections">Browse Collections</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Log Out</string>
     <string name="search">Search</string>
 
     <string-array name="collection_categories">

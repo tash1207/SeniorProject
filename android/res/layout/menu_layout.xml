@@ -2,54 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_grey"
+    android:background="@color/light_blue"
+    android:splitMotionEvents="false"
     android:orientation="vertical" >
 
     <TextView
         android:id="@+id/menu_username"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/light_purple"
-        android:padding="12dp"
-        android:text="Logged in as tash1207"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        style="@style/side_menu_text"
+        android:background="@color/light_blue" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#88FFFFFF" />
+        android:background="#DDFFFFFF" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/grey_to_blue_selector"
+        android:id="@+id/menu_profile"
+        style="@style/side_menu_text"
         android:clickable="true"
         android:onClick="menuProfile"
-        android:padding="12dp"
-        android:text="My Profile"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        android:text="@string/my_profile" />
 
     <View
+        android:id="@+id/menu_profile_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#88FFFFFF" />
+        android:background="#DDFFFFFF" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/grey_to_blue_selector"
+        style="@style/side_menu_text"
         android:clickable="true"
         android:onClick="menuBrowse"
-        android:padding="12dp"
-        android:text="Browse Collections"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        android:text="@string/browse_collections" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#88FFFFFF" />
+        android:background="#DDFFFFFF" />
+
+    <TextView
+        style="@style/side_menu_text"
+        android:clickable="true"
+        android:onClick="menuSettings"
+        android:text="@string/settings" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DDFFFFFF" />
+
+    <TextView
+        android:id="@+id/menu_logout"
+        style="@style/side_menu_text"
+        android:background="@drawable/selector_green"
+        android:clickable="true"
+        android:onClick="menuLogout"
+        android:text="@string/logout" />
+
+    <View
+        android:id="@+id/menu_logout_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DDFFFFFF" />
 
 </LinearLayout>
