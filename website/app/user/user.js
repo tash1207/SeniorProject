@@ -26,12 +26,19 @@
 					
 					$stateProvider.state('app.user', {
 						controller: 'userController',
-						url: '/user',
+						url: '/user/',
 						templateUrl: 'user/user.html',
 						resolve: {
 							'user': ['userServer',
 								function(userServer) {
 									return userServer.get();
+								}
+							],
+							'users': ['userServer', '$stateParams',
+								function(userServer, $stateParams) {
+									return userServer.get($stateParams.userId).then(function(response) {
+										return response.data;
+									});
 								}
 							]
 						}
@@ -39,18 +46,14 @@
 				}
 			]);
 			
-			module.controller('userController', ['$scope','$state','userServer','user',
-				function($scope,$state,userServer,user) {
+			module.controller('userController', ['$scope','$state','userServer','user','users',
+				function($scope,$state,userServer,user,users) {
 					console.log('userController', user);
+					console.log(users);
 					
 					//add functionality here
 					$scope.user = user.data;
-					$scope.reverse = true;
-					$scope.pills = [];
-					
-					$scope.pill = function(model) {
-						$scope.pills.push(model);
-					}
+					$scope.users = users;
 					
 					$scope.deleteUser = function(id) {
 						var index = _.findIndex($scope.user, {
@@ -62,6 +65,10 @@
 							$scope.user.splice(index,1);
 						});
 					};
+					
+					$scope.filterId = function(user) {
+						return(user._id == $scope.users);
+					}
 					
 					}
 				]);

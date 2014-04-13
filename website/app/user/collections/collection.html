@@ -1,0 +1,58 @@
+<div class="row" ui-view>
+    <div class="action-bar clearfix">
+        <h1>Collections</h1>
+        <div>
+            <a class="btn btn-primary btn-block" href="" ui-sref="app.collection.new">Create a new Collection</a>
+        </div>
+    </div>
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="well">				
+			</div>
+		</div>
+			
+			<div class="col-md-12">
+				<div class="slat row" ng-repeat="collection in collection | filter:filterId">
+					<div class="col-md-4 col-sm-12 col-xs-12">
+						<h4 class="slat-title">
+							<a href="" ui-sref="app.item({collectionId: collection._id})">{{collection.title}}</a>
+						</h4>
+					</div>
+					<div class="col-md-5 col-sm-15 col-xs-12">
+						<div class="row">
+							<div class="slat-data-block col-md-4 col-sm-12 col-xs-12">
+								<div class="slat-data-item">
+									{{collection.category}}
+								</div>
+							</div>
+							<div class="slat-data-block col-md-4 col-sm-12 col-xs-12">
+								<div class="slat-data-item">
+									{{collection.description}}
+								</div>
+							</div>
+							<!-- add picture functionality here -->
+						</div>
+					</div>	
+					<div class="col-md-3 col-sm-12 col-xs-12">
+						<div class="btn-group">
+							<a class="btn btn-default btn-small" href="" ui-sref="app.collection.edit({collectionId: collection._id})">Edit</a>
+							
+							<button type="button" class="btn btn-default btn=small dropdown-toggle" data-toggle="dropdown">
+								<span class="caret"></span>
+								<span class="sr-only">Toggle Dropdown</span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li>
+									<a href="" ng-click="deleteCollection(collection._id)">
+										Delete
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -8,6 +8,7 @@
 		'ui.bootstrap',
 		'app.item',
 		'app.collection',
+		'app.login',
 		'app.user'
 		// fill in
 		];
@@ -18,6 +19,7 @@
 		'ui.bootstrap',
 		'app.item',
 		'app.collection',
+		'app.login',
 		'app.user'
 		//fill in
 	], function(angular) {
@@ -49,6 +51,7 @@
 	module.controller('appCtrl', ['$scope', '$state',
 		function($scope, $state) {
 			console.log('appCtrl');
+			
 		}
 	]);
 	

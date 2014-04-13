@@ -1,0 +1,41 @@
+<div class="col-md-12 no-padding">
+    <div class="action-bar clearfix">
+        <h1>Please create a new User!</h1>
+    </div class="content-wrapper">
+		<div class="alert" ng-if"feedback.hasFeedback" ng-class="{ 'alert-success': feedback.status === 'success', 'alert-danger': feedback.status === 'danger'}">
+			<p>{{feedback.message}}</p>
+		</div>
+		<form role="form" ng-submit="saveUser()">
+			<fieldset>
+				<div class="form-group">
+					<label for="Display Name">User Name</label>
+					<input type="text" class="form-control" placeholder="Display Name" ng-model="user.display_name" required>
+				</div>
+				<div class="form-group">
+					<label for="Email">Email</label>
+					<input type="text" class="form-control" placeholder="Email" ng-model="user.email" required>
+				</div>
+				<div class="form-group">
+					<label for="Password">Password</label>
+					<input type="password" class="form-control" placeholder="Password" ng-model="user.password" required>
+				</div>
+				
+				
+				<!-- add more stuff here -->
+				
+				<button type="submit" class="btn btn-success btn-lg btn-block">Submit!</button>
+			</fieldset>
+		</form>
+		<div class="col-md-12">
+			<div class="row">
+				<p></p>
+			</div>	
+		</div>
+		<div class="col-md-12">
+			<div class="row">
+				<a class="btn btn-primary btn-block" href="" ui-sref="app.user">Return</a>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>

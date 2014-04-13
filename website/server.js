@@ -21,7 +21,6 @@ app.configure(function() {
 
 //model code
 var Item = mongoose.model('Item', {
-	id: Number,
 	collection_id: String,
 	title: String,
 	description: String,
@@ -36,23 +35,20 @@ var Comment = mongoose.model('Comment', {
 );
 
 var Collection = mongoose.model('Collection', {
-	id: Number,
 	title: String,
 	description: String,
 	category: String,
 	picture: String,
 	owner: String,
-	isPrivate: Boolean,
+	is_private: Boolean,
 	favorites: Number,
 	}
 );
 
 var User = mongoose.model('User', {
-	id: Number,
-	userName: String,
 	email: String,
 	password: String,
-	displayName: String,
+	display_name: String,
 	picture: String
 	}
 );
@@ -73,12 +69,12 @@ app.namespace('/api', function() {
 		});
 
 	//get one item
-	app.get('/item/:item_id', function(request,response) {
-		Item.findById(request.params.item_id).exec(function(error, item) {
+	app.get('/item/:collectionId', function(request,response) {
+		Item.find({ collection_id: request.params.collectionId}).exec(function(error, items) {
 			if (error) {
 				response.send(error);
 			}
-			response.json(item);
+			response.json(items);
 			});
 		});
 		
@@ -105,7 +101,6 @@ app.namespace('/api', function() {
 	//create an item
 	app.post('/item', function(request, response) {
 		Item.create( {
-			id: request.body.id,
 			collection_id: request.body.collection_id,
 			title: request.body.title,
 			description: request.body.description,
@@ -128,7 +123,6 @@ app.namespace('/api', function() {
 	//update an item		
 	app.post('/item/:item_id', function(request,response) {
 		Item.findByIdAndUpdate(request.params.item_id, {
-			id: request.body.id,
 			collection_id: request.body.collection_id,
 			title: request.body.title,
 			description: request.body.description,
@@ -154,8 +148,29 @@ app.namespace('/api', function() {
 				});
 			});
 		});
+	//get single collection of items
+	app.get('/collection/:collectionId', function(request,response) {
+		Collection.findById(request.params.collectionId, function(error, Id) {
+			if (error) {
+				response.send(error);
+			}
+			
+			response.json(Id);
+		});
+	});
 		
 	//collection stuff
+	//get all
+	app.get('/collection', function(request,response) {
+		Collection.find(function(error, collections) {
+			//if error, then send error message
+			if(error) {
+				response.send(error);
+			}
+			//return Items
+			response.json(collections);
+			});
+		});
 	//single
 	app.get('/collection/:collection_id', function(request, response) {
 		Collection.findById(request.params.collection_id).exec(function(error, collection) {
@@ -169,16 +184,14 @@ app.namespace('/api', function() {
 	//create
 	app.post('/collection', function(request, response) {
 		Collection.create ({
-			id: request.body.id,
 			title: request.body.title,
 			description: request.body.description,
 			category: request.body.category,
 			picture: request.body.picture,
 			owner: request.body.owner,
-			isPrivate: request.body.isPrivate,
-			favorites: request.body.favorites,
-			item: request.body.item
-		}, function (error, Collection) {
+			is_private: request.body.is_private,
+			favorites: request.body.favorites
+		}, function (error, collection) {
 			if (error) {
 				response.send(error);
 			}
@@ -192,10 +205,27 @@ app.namespace('/api', function() {
 			});
 		});
 	});
+	//update a collection	
+	app.post('/collection/:collection_id', function(request,response) {
+		Collection.findByIdAndUpdate(request.params.collection_id, {
+			category: request.body.catgeory,
+			title: request.body.title,
+			description: request.body.description,
+			picture: request.body.picture,
+			owner: request.body.owner,
+			is_private: request.body.is_private,
+			favorites: request.body.favorites
+			}, function(error, collection) {
+				if (error) {
+					response.send(error);
+				}
+				response.json(collection);
+			});
+		});
 
 	//delete 
 	app.delete('/collection/:collection_id', function(request, response) {
-		Item.remove({
+		Collection.remove({
 			_id: request.params.collection_id
 		}, function(error, collection) {
 			if (error) {
@@ -206,24 +236,34 @@ app.namespace('/api', function() {
 			});
 		});
 	});
+	
 	// user stuff
-	app.get('/user/:user_id', function(request,response) {
-		User.findById(request.params.user_id).exec(function(error, user) {
+	// get all users
+	app.get('/user', function(request,response) {
+		User.find(function(error, users) {
+			if(error) {
+				response.send(error);
+			}
+			
+			response.json(users);
+		});
+	});
+	//get a single user
+	app.get('/user/:userId', function(request,response) {
+		User.findById(request.params.userId).exec(function(error, userId) {
 			if (error) {
 				response.send(error);
 			}
-			response.json(user);
+			response.json(userId);
 			});
 		});
 		
 	//create a user
 	app.post('/user', function(request, response) {
 		User.create( {
-			id: request.body.id,
-			userName: request.body.userName,
 			email: request.body.email,
 			password: request.body.password,
-			displayName: request.body.displayName,
+			display_name: request.body.display_name,
 			picture: request.body.picture
 			}, function(error, user) {
 				if (error) {
@@ -242,11 +282,9 @@ app.namespace('/api', function() {
 	//update a user		
 	app.post('/user/:user_id', function(request,response) {
 		User.findByIdAndUpdate(request.params.user_id, {
-			id: request.body.id,
-			userName: request.body.userName,
 			email: request.body.email,
 			password: request.body.password,
-			displayName: request.body.displayName,
+			display_name: request.body.display_name,
 			picture: request.body.picture
 			}, function(error, item) {
 				if (error) {
@@ -256,7 +294,7 @@ app.namespace('/api', function() {
 			});
 		});
 		
-	//delete an item
+	//delete a user
 	app.delete('/user/:user_id', function(request,response) {
 		User.remove ( {
 			_id : request.params.user_id
@@ -270,11 +308,24 @@ app.namespace('/api', function() {
 			});
 		});
 });
+
+//login
+	app.get('/login', function(request,response) {
+		User.findOne({
+			display_name: request.params.display_name,
+			password: request.params.password
+		},function(error, user) {
+			if (error) {
+				response.send(error);
+			}
+			response.json(user);
+		});
+	});	
 	//add comment routes
 
-	app.get('*', function(request, response) {
-		response.sendfile('./app/index.html');
-	});
+	//app.get('*', function(request, response) {
+		//response.sendfile('./app/index.html');
+	//});
 
 exports = module.exports = app;
 	

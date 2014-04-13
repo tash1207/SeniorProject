@@ -3,6 +3,10 @@
 		<div class="navbar-header"></div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
+				<li ng-class="{ 'active': $state.includes('app.login')}">
+					<a href="#" ui-sref="app.login">Login/Sign up</a>
+				</li>
+				
 				<li ng-class="{ 'active': $state.includes('app.user')}">
 					<a href="#" ui-sref="app.user">Profile</a>
 				</li>

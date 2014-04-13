@@ -4,6 +4,7 @@
     "angular": "~1.2.9",
     "bootstrap": "~3.1.1",
     "requirejs": "~2.1.10",
+	"lodash": "~2.4.1",
 	"font-awesome": "~4.0.3",
     "angular-ui-router": "0.2.7",
     "angular-resource": "~1.2.12",

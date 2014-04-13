@@ -16,6 +16,7 @@
 					var userServer = {};
 					
 					userServer.get = function(id) {
+						id = id || '';
 						return $http.get('/api/user/' + id);
 					};
 					

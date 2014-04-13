@@ -22,8 +22,8 @@
 					
 					$stateProvider.state('app.user.new', {
 						controller: 'userNewController',
-						url: '/newUser',
-						templateUrl: 'collections/user/user_form.html'
+						url: 'newUser',
+						templateUrl: '/user/user_form.html'
 					});
 				}
 			]);
@@ -32,12 +32,22 @@
 				function($scope,$state,userServer) {
 					console.log('userNewController');
 					
+					$scope.feedback = {
+                    hasFeedback: false,
+                    message: null,
+                    status: null
+					};
+					
+					function reset() {
+						_.forEach($scope.item, function(item, index) {
+							$scope.item[index] = null;
+						});
+					}
+					
 					$scope.user = {
-						id: null,
-						userName: null,
 						email: null,
 						password: null,
-						displayName: null,
+						display_name: null,
 						picture: null
 					};
 					
@@ -45,15 +55,23 @@
 						console.log('adding user...');
 						userServer.create($scope.user).then(
 							function success(response) {
+								reset();
 								console.log(response);
+								$scope.setFeedback(true, 'success', 'Success!');
 							},
 							
 							function error(response) {
 								console.log(response);
+								$scope.setFeedback(true, 'danger', response);
 							}
 						
 					);
 					};
+					$scope.setFeedback = function(hasFeedback, status, message) {
+								$scope.feedback.hasFeedback = hasFeedback;
+								$scope.feedback.status = status;
+								$scope.feedback.message = message;
+							};
 					
 				}
 			]);
