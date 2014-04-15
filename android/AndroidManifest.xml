@@ -37,6 +37,9 @@
         <activity
             android:name="co.tashawych.collector.BrowseCollections"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="co.tashawych.collector.SettingsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

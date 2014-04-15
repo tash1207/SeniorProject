@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 import co.tashawych.misc.Utility;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -67,6 +66,8 @@ public class BaseActivity extends Activity {
 			});
 			findViewById(R.id.menu_profile).setVisibility(View.GONE);
 			findViewById(R.id.menu_profile_divider).setVisibility(View.GONE);
+			findViewById(R.id.menu_settings).setVisibility(View.GONE);
+			findViewById(R.id.menu_settings_divider).setVisibility(View.GONE);
 			findViewById(R.id.menu_logout).setVisibility(View.GONE);
 			findViewById(R.id.menu_logout_divider).setVisibility(View.GONE);
 		}
@@ -96,7 +97,13 @@ public class BaseActivity extends Activity {
 	}
 	
 	public void menuSettings(View v) {
-		Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+		menu.showContent();
+		Intent settings = new Intent(this, SettingsActivity.class);
+		settings.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		settings.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		settings.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		startActivity(settings);
+		overridePendingTransition(0, 0);
 	}
 
 	public void menuLogout(View v) {

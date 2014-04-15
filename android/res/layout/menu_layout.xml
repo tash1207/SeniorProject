@@ -41,12 +41,14 @@
         android:background="#DDFFFFFF" />
 
     <TextView
+        android:id="@+id/menu_settings"
         style="@style/side_menu_text"
         android:clickable="true"
         android:onClick="menuSettings"
         android:text="@string/settings" />
 
     <View
+        android:id="@+id/menu_settings_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#DDFFFFFF" />
