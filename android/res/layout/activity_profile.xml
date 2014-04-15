@@ -25,7 +25,7 @@
             android:layout_height="55dp"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="@string/app_name" />
+            android:text="@string/my_profile" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -105,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_green"
-                android:onClick="btn_create_collection_clicked"
+                android:onClick="createCollection"
                 android:text="@string/create_collection" />
         </LinearLayout>
     </ScrollView>

@@ -39,7 +39,7 @@ public class Profile extends BaseActivity {
 		menu.showMenu();
 	}
 
-	public void btn_create_collection_clicked(View v) {
+	public void createCollection(View v) {
 		Intent add_collection = new Intent(this, AddCollection.class);
 		startActivity(add_collection);
 	}
