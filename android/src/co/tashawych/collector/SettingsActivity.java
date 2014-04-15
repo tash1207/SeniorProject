@@ -2,7 +2,6 @@ package co.tashawych.collector;
 
 import java.util.List;
 
-import co.tashawych.misc.Utility;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
@@ -14,6 +13,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
+import co.tashawych.misc.Utility;
 
 public class SettingsActivity extends BaseActivity {
 	String picture = "";
@@ -34,11 +34,17 @@ public class SettingsActivity extends BaseActivity {
 	}
 
 	public void saveChanges(View v) {
-
+		// TODO Send picture, display_name, and email to the server
+		// EditText edit_name = (EditText) findViewById(R.id.settings_display_name);
+		// EditText edit_email = (EditText) findViewById(R.id.settings_email);
+		//
+		// String display_name = edit_name.getText().toString();
+		// String email = edit_email.getText().toString();
 	}
 	
 	public void removeData(View v) {
-
+		// TODO Create a db command that removes all collections and items that don't
+		// belong to the current user (client-side only)
 	}
 
 	@Override
@@ -78,8 +84,8 @@ public class SettingsActivity extends BaseActivity {
 				if (extras != null) {
 					Bitmap uploaded_photo = extras.getParcelable("data");
 					picture = Utility.getBitmapAsBase64String(uploaded_photo);
-					ImageView photo = (ImageView) findViewById(R.id.edit_picture);
-					photo.setImageBitmap(uploaded_photo);
+					final ImageView edit_picture = (ImageView) findViewById(R.id.settings_picture);
+					edit_picture.setImageBitmap(uploaded_photo);
 				}
 			}
 
