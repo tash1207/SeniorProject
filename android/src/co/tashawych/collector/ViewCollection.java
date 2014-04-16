@@ -1,7 +1,5 @@
 package co.tashawych.collector;
 
-import java.util.ArrayList;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +13,7 @@ import co.tashawych.misc.Utility;
 public class ViewCollection extends BaseActivity {
 	String id;
 	Collection col;
+	ViewCollectionAdapter adapter;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,22 +35,18 @@ public class ViewCollection extends BaseActivity {
 
 		title.setText(col.getTitle());
 		username.setText("by " + col.getUsername());
+	}
 
+	public void onStart() {
+		super.onStart();
 		updateGridView();
 	}
 
 	public void updateGridView() {
-		ArrayList<Integer> ints = new ArrayList<Integer>();
-		ints.add(R.drawable.ic_stamp);
-		ints.add(R.drawable.ic_card);
-		ints.add(R.drawable.ic_figurine);
-		ints.add(R.drawable.ic_book);
-		ints.add(R.drawable.ic_media);
-		ints.add(R.drawable.ic_electronic);
-		ints.add(R.drawable.ic_coin);
-
 		GridView gridView = (GridView) findViewById(R.id.gridview);
-		gridView.setAdapter(new ViewCollectionAdapter(this, R.layout.gridview_layout, R.id.gridview_item, ints));
+		adapter = new ViewCollectionAdapter(this, R.layout.gridview_layout,
+				DatabaseHelper.getHelper(this).getItemsByCollectionId(id), new String[] {}, new int[] {}, 0);
+		gridView.setAdapter(adapter);
 	}
 
 	public void addItem(View v) {

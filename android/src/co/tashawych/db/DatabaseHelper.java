@@ -25,6 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		// Create all tables
 		UserDB.createTable(db);
 		CollectionDB.createTable(db);
+		ItemDB.createTable(db);
 	}
 
 	@Override

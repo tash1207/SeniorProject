@@ -1,33 +1,40 @@
 package co.tashawych.collector;
 
-import java.util.List;
-
 import android.content.Context;
+import android.database.Cursor;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import co.tashawych.db.ItemDB;
+import co.tashawych.misc.Utility;
 
-public class ViewCollectionAdapter extends ArrayAdapter<Integer> {
+public class ViewCollectionAdapter extends SimpleCursorAdapter {
 	Context context;
 	int layout;
-	List<Integer> ints;
+	Cursor cursor;
 
-	public ViewCollectionAdapter(Context context, int layout, int view, List<Integer> ints) {
-		super(context, layout, view, ints);
+	public ViewCollectionAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
+		super(context, layout, c, from, to, flags);
 		this.context = context;
 		this.layout = layout;
-		this.ints = ints;
+		this.cursor = c;
+	}
+
+	public void updateCursor(Cursor c) {
+		this.cursor = c;
+		notifyDataSetChanged();
 	}
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		convertView = inflater.inflate(layout, parent, false);
 
+		cursor.moveToPosition(position);
 		ImageView image = (ImageView) convertView.findViewById(R.id.gridview_item);
-		image.setImageResource(ints.get(position));
+		image.setImageBitmap(Utility.getBitmapFromString(cursor.getString(cursor.getColumnIndex(ItemDB.ITEM_PICTURE))));
 
 		return convertView;
 	}
