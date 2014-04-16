@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import co.tashawych.db.DatabaseHelper;
 import co.tashawych.misc.Utility;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -108,7 +109,11 @@ public class BaseActivity extends Activity {
 
 	public void menuLogout(View v) {
 		Utility.prefs(this).edit().putString("username", "").commit();
-		startActivity(new Intent(this, Login.class));
+		DatabaseHelper.getHelper(this).removeAllUsers();
+		Intent login = new Intent(this, Login.class);
+		login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		login.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(login);
 		finish();
 	}
 

@@ -4,6 +4,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.ContentValues;
+import android.database.Cursor;
+import co.tashawych.db.UserDB;
 
 public class User {
 
@@ -30,12 +32,19 @@ public class User {
 		}
 	}
 
+	public User(Cursor c) {
+		this.username = c.getString(c.getColumnIndex(UserDB.USER_ID));
+		this.display_name = c.getString(c.getColumnIndex(UserDB.USER_DISPLAY_NAME));
+		this.email = c.getString(c.getColumnIndex(UserDB.USER_EMAIL));
+		this.picture = c.getString(c.getColumnIndex(UserDB.USER_PICTURE));
+	}
+
 	public ContentValues toContentValues() {
 		ContentValues cv = new ContentValues();
-		cv.put("_id", username);
-		cv.put("display_name", display_name);
-		cv.put("email", email);
-		cv.put("picture", picture);
+		cv.put(UserDB.USER_ID, username);
+		cv.put(UserDB.USER_DISPLAY_NAME, display_name);
+		cv.put(UserDB.USER_EMAIL, email);
+		cv.put(UserDB.USER_PICTURE, picture);
 		return cv;
 	}
 

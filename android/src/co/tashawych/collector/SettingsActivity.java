@@ -20,19 +20,34 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 import co.tashawych.datatypes.User;
+import co.tashawych.db.DatabaseHelper;
 import co.tashawych.http.HttpRequest;
 import co.tashawych.misc.Utility;
 
 public class SettingsActivity extends BaseActivity {
-	String picture = "";
+	User user;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
 		setupSideMenu();
+
+		user = DatabaseHelper.getHelper(this).getUser(Utility.getUsername(this));
+
+		ImageView picture = (ImageView) findViewById(R.id.settings_picture);
+		if (user.getPicture() != null && !user.getPicture().equals("")) {
+			picture.setImageBitmap(Utility.getBitmapFromString(user.getPicture()));
+		}
+
+		EditText edit_name = (EditText) findViewById(R.id.settings_display_name);
+		EditText edit_email = (EditText) findViewById(R.id.settings_email);
+
+		edit_name.setText(user.getDisplayName());
+		edit_email.setText(user.getEmail());
 	}
-	
+
 	public void menuClicked(View v) {
 		menu.showMenu();
 	}
@@ -49,7 +64,9 @@ public class SettingsActivity extends BaseActivity {
 		String display_name = edit_name.getText().toString();
 		String email = edit_email.getText().toString();
 
-		User user = new User(Utility.getUsername(this), display_name, email, picture);
+		user.setDisplayName(display_name);
+		user.setEmail(email);
+
 		new edit_user(user).execute();
 	}
 
@@ -81,6 +98,16 @@ public class SettingsActivity extends BaseActivity {
 				e.printStackTrace();
 			}
 			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String s) {
+			if (s != null) {
+				Toast.makeText(SettingsActivity.this, s, Toast.LENGTH_SHORT).show();
+				DatabaseHelper.getHelper(SettingsActivity.this).updateUser(user);
+			} else {
+				Toast.makeText(SettingsActivity.this, "An Error Occurred", Toast.LENGTH_SHORT).show();
+			}
 		}
 
 	}
@@ -121,7 +148,7 @@ public class SettingsActivity extends BaseActivity {
 				Bundle extras = data.getExtras();
 				if (extras != null) {
 					Bitmap uploaded_photo = extras.getParcelable("data");
-					picture = Utility.getBitmapAsBase64String(uploaded_photo);
+					user.setPicture(Utility.getBitmapAsBase64String(uploaded_photo));
 					final ImageView edit_picture = (ImageView) findViewById(R.id.settings_picture);
 					edit_picture.setImageBitmap(uploaded_photo);
 				}

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import co.tashawych.datatypes.Collection;
+import co.tashawych.datatypes.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -21,6 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// Create all tables
+		UserDB.createTable(db);
 		CollectionDB.createTable(db);
 	}
 
@@ -38,6 +40,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			db = helper.getWritableDatabase();
 		}
 		return helper;
+	}
+
+	// UserDB methods
+
+	public void insertUser(User user) {
+		UserDB.insert(db, user);
+	}
+
+	public User getUser(String id) {
+		return UserDB.getUser(db, id);
+	}
+
+	public void updateUser(User user) {
+		UserDB.updateUser(db, user);
+	}
+
+	public void removeAllUsers() {
+		UserDB.removeAllUsers(db);
 	}
 
 	// CollectionDB methods

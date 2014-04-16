@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import co.tashawych.datatypes.User;
+import co.tashawych.db.DatabaseHelper;
 import co.tashawych.http.HttpRequest;
 import co.tashawych.misc.Utility;
 
@@ -66,6 +67,7 @@ public class Login extends Activity {
 
 		if (user != null) {
 			// TODO from signup, pass a first_time boolean to profile to show mini tutorial
+			DatabaseHelper.getHelper(this).insertUser(user);
 			Utility.prefs(this).edit().putString("username", user.getUsername()).commit();
 			Intent profile = new Intent(this, Profile.class);
 			startActivity(profile);
