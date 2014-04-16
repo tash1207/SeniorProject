@@ -47,4 +47,8 @@ public class CollectionDB {
 		return new Collection(c);
 	}
 
+	public static void updateCollection(SQLiteDatabase db, Collection col) {
+		db.update(TABLE_NAME, col.toContentValues(), COL_ID + "=?", new String[] { col.getId() });
+	}
+
 }

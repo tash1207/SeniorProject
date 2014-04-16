@@ -17,6 +17,7 @@
     <string name="add_collection">Add Collection</string>
     <string name="add_item">Add a New Item</string>
     <string name="collection">Collection</string>
+    <string name="edit">Edit</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="category">Category</string>

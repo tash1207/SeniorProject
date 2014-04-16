@@ -20,9 +20,9 @@
             android:layout_gravity="center"
             android:background="@drawable/rounded_border"
             android:contentDescription="@string/picture"
+            android:onClick="uploadPicture"
             android:padding="4dp"
-            android:src="@drawable/logo_no_bg"
-            android:onClick="uploadPicture" />
+            android:src="@drawable/logo_no_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,6 +79,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_add_collection"
         style="@style/big_button_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

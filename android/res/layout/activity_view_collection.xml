@@ -27,6 +27,18 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="@string/collection" />
+
+        <ImageView
+            android:id="@+id/btn_edit_collection"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/transparent_purple_selector"
+            android:contentDescription="@string/edit"
+            android:onClick="editCollection"
+            android:padding="6dp"
+            android:src="@drawable/icon_edit"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -107,13 +119,15 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/btn_add_item"
         style="@style/big_button_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:background="@drawable/rounded_green"
         android:onClick="addItem"
-        android:text="@string/add_item" />
+        android:text="@string/add_item"
+        android:visibility="gone" />
 
     <GridView
         android:id="@+id/gridview"

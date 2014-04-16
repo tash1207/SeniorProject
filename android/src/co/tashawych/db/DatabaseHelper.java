@@ -80,6 +80,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return CollectionDB.getCollectionsByUserId(db, username);
 	}
 
+	public void updateCollection(Collection col) {
+		CollectionDB.updateCollection(db, col);
+	}
+
 	// ItemDB methods
 
 	public void insertItem(Item item) {

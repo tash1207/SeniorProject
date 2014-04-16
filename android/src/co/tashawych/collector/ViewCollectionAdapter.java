@@ -14,12 +14,15 @@ public class ViewCollectionAdapter extends SimpleCursorAdapter {
 	Context context;
 	int layout;
 	Cursor cursor;
+	boolean my_collection;
 
-	public ViewCollectionAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
+	public ViewCollectionAdapter(Context context, int layout, Cursor c, 
+			String[] from, int[] to, int flags, boolean my_collection) {
 		super(context, layout, c, from, to, flags);
 		this.context = context;
 		this.layout = layout;
 		this.cursor = c;
+		this.my_collection = my_collection;
 	}
 
 	public void updateCursor(Cursor c) {

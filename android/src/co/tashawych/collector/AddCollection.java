@@ -33,10 +33,35 @@ import co.tashawych.misc.Utility;
 public class AddCollection extends BaseActivity {
 	Collection col;
 	String picture = "";
+	boolean edit_collection;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_collection);
+
+		String col_id = getIntent().getStringExtra("col_id");
+		col = DatabaseHelper.getHelper(this).getCollection(col_id);
+		edit_collection = col == null ? false : true;
+
+		if (edit_collection) {
+			final ImageView edit_picture = (ImageView) findViewById(R.id.edit_picture);
+			final EditText edit_title = (EditText) findViewById(R.id.edit_title);
+			final EditText edit_desc = (EditText) findViewById(R.id.edit_description);
+			final Button edit_category = (Button) findViewById(R.id.edit_category);
+			final Button btn_edit = (Button) findViewById(R.id.btn_add_collection);
+
+			if (col.getPicture().equals("")) {
+				edit_picture.setImageResource(Utility.getPictureForCategory(col.getCategory()));
+			}
+			else {
+				picture = col.getPicture();
+				edit_picture.setImageBitmap(Utility.getBitmapFromString(col.getPicture()));
+			}
+			edit_title.setText(col.getTitle());
+			edit_desc.setText(col.getDescription());
+			edit_category.setText(col.getCategory());
+			btn_edit.setText("Edit Collection");
+		}
 	}
 	
 	public void uploadPicture(View v) {
@@ -104,30 +129,54 @@ public class AddCollection extends BaseActivity {
 		String description = edit_desc.getText().toString();
 		String category = edit_category.getText().toString();
 		if (category.equals("Other")) category = "";
+		
+		if (!edit_collection) {
+			// Create a new collection
+			col = new Collection(Utility.prefs(AddCollection.this).getString("username", ""), 
+					title, description, category, false, picture);
+			String col_id = "";
 
-		col = new Collection(Utility.prefs(AddCollection.this).getString("username", ""), 
-				title, description, category, false, picture);
-		
-		String col_id = "";
-		
-		try {
-			// Send the collection to the server to get a Collection id
-			col_id = new create_collection(col).execute().get();
-			if (col_id.equals("")) {
+			try {
+				// Send the collection to the server to get a Collection id
+				col_id = new create_collection(col).execute().get();
+				if (col_id.equals("")) {
+					Toast.makeText(this, "An error occurred. Please try again!", Toast.LENGTH_SHORT).show();
+				}
+				else {
+					// Store this collection client-side
+					col.setId(col_id);
+					DatabaseHelper.getHelper(this).insertCollection(col);
+					finish();
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				Toast.makeText(this, "An error occurred. Please try again!", Toast.LENGTH_SHORT).show();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
 				Toast.makeText(this, "An error occurred. Please try again!", Toast.LENGTH_SHORT).show();
 			}
-			else {
-				// Store this collection client-side
-				col.setId(col_id);
-				DatabaseHelper.getHelper(this).insertCollection(col);
-				finish();
+		}
+		else {
+			// Edit existing collection
+			col.setTitle(title);
+			col.setDescription(description);
+			col.setCategory(category);
+			col.setPicture(picture);
+
+			try {
+				String response = new edit_collection(col).execute().get();
+				if (response.equals("")) {
+					Toast.makeText(this, "An error occurred. Please try again!", Toast.LENGTH_SHORT).show();
+				}
+				else {
+					// Store this collection client-side
+					DatabaseHelper.getHelper(this).updateCollection(col);
+					finish();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				Toast.makeText(this, "An error occurred. Please try again!", Toast.LENGTH_SHORT).show();
 			}
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			Toast.makeText(this, "An error occurred. Please try again!", Toast.LENGTH_SHORT).show();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-			Toast.makeText(this, "An error occurred. Please try again!", Toast.LENGTH_SHORT).show();
 		}
 
 	}
@@ -157,9 +206,35 @@ public class AddCollection extends BaseActivity {
 			}
 			return null;
 		}
-		
 	}
 	
+	private class edit_collection extends AsyncTask<Void, Void, String> {
+		final Collection col;
+		
+		private edit_collection(Collection col) {
+			this.col = col;
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			try {
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
+				nameValuePairs.add(new BasicNameValuePair("_id", col.getId()));
+	            nameValuePairs.add(new BasicNameValuePair("title", col.getTitle()));
+	            nameValuePairs.add(new BasicNameValuePair("description", col.getDescription()));
+	            nameValuePairs.add(new BasicNameValuePair("category", col.getCategory()));
+	            nameValuePairs.add(new BasicNameValuePair("picture", col.getPicture()));
+
+	            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(nameValuePairs);
+
+				return HttpRequest.POST(Utility.URL + "/editCollection", entity);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+	}
+
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, final Intent data) {
 		if (resultCode == Activity.RESULT_OK) {
