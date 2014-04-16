@@ -44,6 +44,15 @@ public class Profile extends BaseActivity {
 		String display_name = user.getDisplayName().equals("") ? user.getUsername() : user.getDisplayName();
 		name.setText(display_name);
 		num.setText(String.valueOf(adapter.getCount()));
+
+		if (adapter.getCount() == 0) {
+			lvw_my_collections.setVisibility(View.GONE);
+			findViewById(R.id.profile_my_collections).setVisibility(View.GONE);
+		}
+		else {
+			lvw_my_collections.setVisibility(View.VISIBLE);
+			findViewById(R.id.profile_my_collections).setVisibility(View.VISIBLE);
+		}
 	}
 
 	public void menuClicked(View v) {

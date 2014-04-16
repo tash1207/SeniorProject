@@ -85,6 +85,15 @@
             android:orientation="vertical"
             android:padding="12dp" >
 
+            <Button
+                style="@style/big_button_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/rounded_green"
+                android:onClick="createCollection"
+                android:text="@string/create_collection" />
+
             <TextView
                 android:id="@+id/profile_my_collections"
                 style="@style/big_header_text"
@@ -99,14 +108,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp" />
-
-            <Button
-                style="@style/big_button_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_green"
-                android:onClick="createCollection"
-                android:text="@string/create_collection" />
         </LinearLayout>
     </ScrollView>
 
