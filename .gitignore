@@ -27,6 +27,7 @@ proguard-project.txt
 .settings/
 .loadpath
 .buildpath
+lint.xml
 
 # Mac
 
