@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_purple"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -105,11 +106,19 @@
         </LinearLayout>
     </RelativeLayout>
 
+    <Button
+        style="@style/big_button_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:background="@drawable/rounded_green"
+        android:onClick="addItem"
+        android:text="@string/add_item" />
+
     <GridView
         android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_purple"
         android:columnWidth="106dp"
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth" >

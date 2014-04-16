@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import co.tashawych.datatypes.Collection;
+import co.tashawych.datatypes.Item;
 import co.tashawych.datatypes.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -76,6 +77,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public Cursor getCollectionsByUserId(String username) {
 		return CollectionDB.getCollectionsByUserId(db, username);
+	}
+
+	// ItemDB methods
+
+	public void insertItem(Item item) {
+		ItemDB.insert(db, item);
+	}
+
+	public Cursor getItemsByCollectionId(String col_id) {
+		return ItemDB.getItemsByCollectionId(db, col_id);
 	}
 
 }

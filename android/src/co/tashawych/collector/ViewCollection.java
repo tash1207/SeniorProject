@@ -2,6 +2,7 @@ package co.tashawych.collector;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.GridView;
@@ -51,6 +52,12 @@ public class ViewCollection extends BaseActivity {
 
 		GridView gridView = (GridView) findViewById(R.id.gridview);
 		gridView.setAdapter(new ViewCollectionAdapter(this, R.layout.gridview_layout, R.id.gridview_item, ints));
+	}
+
+	public void addItem(View v) {
+		Intent add_item = new Intent(this, AddItem.class);
+		add_item.putExtra("col_id", col.getId());
+		startActivity(add_item);
 	}
 
 	public void backClicked(View v) {
