@@ -93,6 +93,65 @@ If not:
 
 + empty string
 
+## /addItem
+
+Creates a new item within a collection.
+
+### URL
+
+http://tashawych.co:8080/addItem
+
+### HTTP method
+
+POST
+
+### Parameters
+
++ title (optional)
++ description (optional)
++ picture
++ col_id
+
+### Response
+
+If successful:
+
++ item_id
+
+If not:
+
++ empty string
+
+## /getItems
+
+Gets all items from a collection.
+
+### URL
+
+http://tashawych.co:8080/getItems
+
+### HTTP method
+
+POST
+
+### Parameters
+
++ col_id
+
+### Response
+
+If successful, return array of items as JSONObjects:
+
++ _id
++ title
++ description
++ picture
++ collection_id
+
+If not:
+
++ empty array []
+
 ## /editUser
 
 Edits a user's display name, email, and picture.
