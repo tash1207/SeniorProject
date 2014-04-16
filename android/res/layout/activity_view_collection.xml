@@ -6,6 +6,30 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/dark_purple" >
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/transparent_purple_selector"
+            android:contentDescription="@string/menu"
+            android:onClick="backClicked"
+            android:padding="6dp"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            style="@style/header_app_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/collection" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="92dp"
         android:background="@color/light_grey" >
 
@@ -81,16 +105,14 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <ScrollView
+    <GridView
+        android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_purple" >
-
-        <GridView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:numColumns="auto_fit" >
-        </GridView>
-    </ScrollView>
+        android:background="@color/light_purple"
+        android:columnWidth="106dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth" >
+    </GridView>
 
 </LinearLayout>
