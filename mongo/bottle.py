@@ -72,6 +72,31 @@ def post_add_collection():
 
   return collections.insert_collection(title, description, category, picture, 'false', username)
 
+@bottle.get('/editCollection')
+def get_edit_collection():
+  return '''
+    <form action="/editCollection" method="post">
+      Collection Id: <input name="col_id" type="text" />
+      Title: <input name="title" type="text" />
+      Description: <input name="description" type="text" />
+      Category: <input name="category" type="text" />
+      Picture: <input name="picture" type="text" />
+      <input value="Edit Collection" type="submit" />
+    </form>
+  '''
+
+@bottle.post('/editCollection')
+def post_edit_collection():
+  col_id = bottle.request.forms.get("col_id")
+  title = bottle.request.forms.get("title")
+  description = bottle.request.forms.get("description")
+  category = bottle.request.forms.get("category")
+  picture = bottle.request.forms.get("picture")
+
+  collections.edit_collection(col_id, title, description, category, picture)
+
+  return 'Changes Saved!'
+
 @bottle.get('/addItem')
 def get_add_item():
   return '''

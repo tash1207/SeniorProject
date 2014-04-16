@@ -93,6 +93,36 @@ If not:
 
 + empty string
 
+## /editCollection
+
+Edits a collection's title, description, category, and picture.
+
+### URL
+
+http://tashawych.co:8080/editCollection
+
+### HTTP method
+
+POST
+
+### Parameters
+
++ col_id
++ title
++ description
++ category
++ picture (optional)
+
+### Response
+
+If successful:
+
++ "Changes Saved!"
+
+If not:
+
++ empty string
+
 ## /addItem
 
 Creates a new item within a collection.
