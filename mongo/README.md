@@ -24,9 +24,12 @@ POST
 
 ### Response
 
-If successful:
+If successful, return user as JSONObject:
 
-+ username
++ _id
++ display_name
++ email
++ picture
 
 If not:
 
@@ -85,6 +88,35 @@ POST
 If successful:
 
 + collection_id
+
+If not:
+
++ empty string
+
+## /editUser
+
+Edits a user's display name, email, and picture.
+
+### URL
+
+http://tashawych.co:8080/editUser
+
+### HTTP method
+
+POST
+
+### Parameters
+
++ username
++ display_name
++ email
++ picture (optional)
+
+### Response
+
+If successful:
+
++ "Changes Saved!"
 
 If not:
 

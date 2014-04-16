@@ -7,6 +7,8 @@ import java.util.concurrent.ExecutionException;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -21,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import co.tashawych.datatypes.User;
 import co.tashawych.http.HttpRequest;
 import co.tashawych.misc.Utility;
 
@@ -46,17 +49,24 @@ public class Login extends Activity {
 		String password = edit_password.getText().toString();
 
 		String response = "";
+		JSONObject json;
+		User user = null;
 
 		try {
 			response = new login_post(username, password).execute().get();
+			json = new JSONObject(response);
+			user = new User(json);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 
-		if (!response.equals("")) {
-			Utility.prefs(this).edit().putString("username", response).commit();
+		if (user != null) {
+			// TODO from signup, pass a first_time boolean to profile to show mini tutorial
+			Utility.prefs(this).edit().putString("username", user.getUsername()).commit();
 			Intent profile = new Intent(this, Profile.class);
 			startActivity(profile);
 		}

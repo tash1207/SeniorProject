@@ -21,7 +21,7 @@ def post_login():
   user_record = users.validate_login(username, password)
 
   if user_record:
-    return user_record['_id']
+    return user_record
 
   else:
     return ""
@@ -71,6 +71,28 @@ def post_add_collection():
 
   return collections.insert_collection(title, description, category, picture, 'false', username)
 
+@bottle.get('/editUser')
+def get_edit_user():
+  return '''
+    <form action="/editUser" method="post">
+      Username: <input name="username" type="text" />
+      Display Name: <input name="display_name" type="text" />
+      Email: <input name="email" type="text" />
+      Picture: <input name="picture" type="text" />
+      <input value="Edit User" type="submit" />
+    </form>
+  '''
+
+@bottle.post('/editUser')
+def post_edit_user():
+  username = bottle.request.forms.get("username")
+  display_name = bottle.request.forms.get("display_name")
+  email = bottle.request.forms.get("email")
+  picture = bottle.request.forms.get("picture")
+
+  users.edit_user(username, display_name, email, picture)
+
+  return 'Changes Saved!'
 
 connection = pymongo.MongoClient()
 database = connection.collector

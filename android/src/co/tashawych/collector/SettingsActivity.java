@@ -1,6 +1,11 @@
 package co.tashawych.collector;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,10 +14,14 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import co.tashawych.datatypes.User;
+import co.tashawych.http.HttpRequest;
 import co.tashawych.misc.Utility;
 
 public class SettingsActivity extends BaseActivity {
@@ -34,17 +43,46 @@ public class SettingsActivity extends BaseActivity {
 	}
 
 	public void saveChanges(View v) {
-		// TODO Send picture, display_name, and email to the server
-		// EditText edit_name = (EditText) findViewById(R.id.settings_display_name);
-		// EditText edit_email = (EditText) findViewById(R.id.settings_email);
-		//
-		// String display_name = edit_name.getText().toString();
-		// String email = edit_email.getText().toString();
+		EditText edit_name = (EditText) findViewById(R.id.settings_display_name);
+		EditText edit_email = (EditText) findViewById(R.id.settings_email);
+
+		String display_name = edit_name.getText().toString();
+		String email = edit_email.getText().toString();
+
+		User user = new User(Utility.getUsername(this), display_name, email, picture);
+		new edit_user(user).execute();
 	}
-	
+
 	public void removeData(View v) {
 		// TODO Create a db command that removes all collections and items that don't
 		// belong to the current user (client-side only)
+	}
+
+	private class edit_user extends AsyncTask<Void, Void, String> {
+		final User user;
+
+		private edit_user(User user) {
+			this.user = user;
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			try {
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+				nameValuePairs.add(new BasicNameValuePair("username", user.getUsername()));
+				nameValuePairs.add(new BasicNameValuePair("display_name", user.getDisplayName()));
+				nameValuePairs.add(new BasicNameValuePair("email", user.getEmail()));
+				nameValuePairs.add(new BasicNameValuePair("picture", user.getPicture()));
+
+				UrlEncodedFormEntity entity = new UrlEncodedFormEntity(nameValuePairs);
+
+				return HttpRequest.POST(Utility.URL + "/editUser", entity);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
 	}
 
 	@Override
