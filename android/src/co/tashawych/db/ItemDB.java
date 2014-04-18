@@ -27,6 +27,12 @@ public class ItemDB {
 		db.insert(TABLE_NAME, null, item.toContentValues());
 	}
 
+	public static Item getItem(SQLiteDatabase db, String id) {
+		Cursor c = db.query(TABLE_NAME, null, ITEM_ID + "=?", new String[]{id}, null, null, null);
+		c.moveToFirst();
+		return new Item(c);
+	}
+
 	public static Cursor getItemsByCollectionId(SQLiteDatabase db, String col_id) {
 		return db.query(TABLE_NAME, null, ITEM_COL_ID + "=?", new String[] { col_id }, null, null, null);
 	}

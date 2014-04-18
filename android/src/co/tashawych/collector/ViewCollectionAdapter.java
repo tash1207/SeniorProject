@@ -1,12 +1,14 @@
 package co.tashawych.collector;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 import co.tashawych.db.ItemDB;
 import co.tashawych.misc.Utility;
 
@@ -39,6 +41,25 @@ public class ViewCollectionAdapter extends SimpleCursorAdapter {
 		ImageView image = (ImageView) convertView.findViewById(R.id.gridview_item);
 		image.setImageBitmap(Utility.getBitmapFromString(cursor.getString(cursor.getColumnIndex(ItemDB.ITEM_PICTURE))));
 
+		convertView.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				cursor.moveToPosition(position);
+				Intent view_item = new Intent(context, ViewItem.class);
+				view_item.putExtra("item_id", cursor.getString(cursor.getColumnIndex(ItemDB.ITEM_ID)));
+				context.startActivity(view_item);
+			}
+		});
+		convertView.setOnLongClickListener(new View.OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View v) {
+				cursor.moveToPosition(position);
+				Toast.makeText(context, "Deleting items: coming soon", Toast.LENGTH_SHORT).show();
+				return true;
+			}
+		});
 		return convertView;
 	}
 

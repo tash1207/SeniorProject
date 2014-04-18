@@ -90,6 +90,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		ItemDB.insert(db, item);
 	}
 
+	public Item getItem(String id) {
+		return ItemDB.getItem(db, id);
+	}
+
 	public Cursor getItemsByCollectionId(String col_id) {
 		return ItemDB.getItemsByCollectionId(db, col_id);
 	}

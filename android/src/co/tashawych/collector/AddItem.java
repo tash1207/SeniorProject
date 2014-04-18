@@ -138,7 +138,7 @@ public class AddItem extends BaseActivity {
 				}
 
 				else {
-					Utility.doCrop(this, selectedImage, 150, 150, 1, 1, AFTER_CROP);
+					Utility.doCrop(this, selectedImage, 175, 175, 1, 1, AFTER_CROP);
 				}
 			}
 			// AFTER CROP

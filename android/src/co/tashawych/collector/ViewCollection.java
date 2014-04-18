@@ -19,7 +19,7 @@ public class ViewCollection extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_collection);
-		
+
 		id = getIntent().getStringExtra("id");
 		col = DatabaseHelper.getHelper(this).getCollection(id);
 		my_collection = col.getUsername().equals(Utility.getUsername(this));
@@ -29,7 +29,7 @@ public class ViewCollection extends BaseActivity {
 			findViewById(R.id.btn_add_item).setVisibility(View.VISIBLE);
 			findViewById(R.id.btn_edit_collection).setVisibility(View.VISIBLE);
 		}
-		
+
 		ImageView picture = (ImageView) findViewById(R.id.collection_picture);
 		TextView title = (TextView) findViewById(R.id.collection_title);
 		TextView username = (TextView) findViewById(R.id.collection_username);
