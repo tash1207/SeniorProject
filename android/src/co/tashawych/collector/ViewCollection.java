@@ -52,7 +52,7 @@ public class ViewCollection extends BaseActivity {
 
 	public void updateGridView() {
 		GridView gridView = (GridView) findViewById(R.id.gridview);
-		adapter = new ViewCollectionAdapter(this, R.layout.gridview_layout, 
+		adapter = new ViewCollectionAdapter(this, R.layout.gridview_layout, col.getCategory(),
 				DatabaseHelper.getHelper(this).getItemsByCollectionId(id), new String[] {}, new int[] {}, 0, my_collection);
 		gridView.setAdapter(adapter);
 	}

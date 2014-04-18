@@ -15,14 +15,16 @@ import co.tashawych.misc.Utility;
 public class ViewCollectionAdapter extends SimpleCursorAdapter {
 	Context context;
 	int layout;
+	String col_category;
 	Cursor cursor;
 	boolean my_collection;
 
-	public ViewCollectionAdapter(Context context, int layout, Cursor c, 
+	public ViewCollectionAdapter(Context context, int layout, String col_category, Cursor c, 
 			String[] from, int[] to, int flags, boolean my_collection) {
 		super(context, layout, c, from, to, flags);
 		this.context = context;
 		this.layout = layout;
+		this.col_category = col_category;
 		this.cursor = c;
 		this.my_collection = my_collection;
 	}
@@ -39,7 +41,12 @@ public class ViewCollectionAdapter extends SimpleCursorAdapter {
 
 		cursor.moveToPosition(position);
 		ImageView image = (ImageView) convertView.findViewById(R.id.gridview_item);
-		image.setImageBitmap(Utility.getBitmapFromString(cursor.getString(cursor.getColumnIndex(ItemDB.ITEM_PICTURE))));
+		if (cursor.getString(cursor.getColumnIndex(ItemDB.ITEM_PICTURE)).equals("")) {
+			image.setImageResource(Utility.getPictureForCategory(col_category));
+		}
+		else {
+			image.setImageBitmap(Utility.getBitmapFromString(cursor.getString(cursor.getColumnIndex(ItemDB.ITEM_PICTURE))));
+		}
 
 		convertView.setOnClickListener(new View.OnClickListener() {
 
@@ -51,15 +58,17 @@ public class ViewCollectionAdapter extends SimpleCursorAdapter {
 				context.startActivity(view_item);
 			}
 		});
-		convertView.setOnLongClickListener(new View.OnLongClickListener() {
+		if (my_collection) {
+			convertView.setOnLongClickListener(new View.OnLongClickListener() {
 
-			@Override
-			public boolean onLongClick(View v) {
-				cursor.moveToPosition(position);
-				Toast.makeText(context, "Deleting items: coming soon", Toast.LENGTH_SHORT).show();
-				return true;
-			}
-		});
+				@Override
+				public boolean onLongClick(View v) {
+					cursor.moveToPosition(position);
+					Toast.makeText(context, "Deleting items: coming soon", Toast.LENGTH_SHORT).show();
+					return true;
+				}
+			});
+		}
 		return convertView;
 	}
 

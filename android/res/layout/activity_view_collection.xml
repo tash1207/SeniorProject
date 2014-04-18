@@ -91,7 +91,6 @@
                 android:id="@+id/profile_num_comments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2"
                 android:textColor="@android:color/black" >
             </TextView>
 
@@ -100,13 +99,13 @@
                 android:layout_height="20dp"
                 android:contentDescription="@string/comments"
                 android:padding="2dp"
-                android:src="@drawable/comment_icon" />
+                android:src="@drawable/comment_icon"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/profile_num_favorites"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3"
                 android:textColor="@android:color/black" >
             </TextView>
 
@@ -114,7 +113,8 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:contentDescription="@string/favorites"
-                android:src="@drawable/favorites_icon" />
+                android:src="@drawable/favorites_icon"
+                android:visibility="gone" />
         </LinearLayout>
     </RelativeLayout>
 

@@ -69,6 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	public Collection getCollection(String id) {
+		if (id == null) return null;
 		return CollectionDB.getCollection(db, id);
 	}
 

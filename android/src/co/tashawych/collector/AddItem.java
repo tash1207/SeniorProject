@@ -48,16 +48,16 @@ public class AddItem extends BaseActivity {
 	}
 
 	public void addItem(View v) {
-		if (picture.equals("")) {
-			Toast.makeText(this, "You need upload a picture of the item!", Toast.LENGTH_SHORT).show();
-			return;
-		}
-
 		EditText edit_title = (EditText) findViewById(R.id.edit_title);
 		EditText edit_desc = (EditText) findViewById(R.id.edit_description);
 
 		String title = edit_title.getText().toString();
 		String description = edit_desc.getText().toString();
+
+		if (picture.equals("") && title.equals("")) {
+			Toast.makeText(this, "You need add a picture or a title for the item!", Toast.LENGTH_SHORT).show();
+			return;
+		}
 
 		item = new Item(col_id, title, description, picture);
 		item_id = "";

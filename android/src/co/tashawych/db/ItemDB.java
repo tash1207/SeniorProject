@@ -34,7 +34,7 @@ public class ItemDB {
 	}
 
 	public static Cursor getItemsByCollectionId(SQLiteDatabase db, String col_id) {
-		return db.query(TABLE_NAME, null, ITEM_COL_ID + "=?", new String[] { col_id }, null, null, null);
+		return db.query(TABLE_NAME, null, ITEM_COL_ID + "=?", new String[] { col_id }, null, null, ITEM_TITLE + " ASC");
 	}
 
 }

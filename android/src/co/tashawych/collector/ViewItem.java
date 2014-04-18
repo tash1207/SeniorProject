@@ -23,7 +23,12 @@ public class ViewItem extends Activity {
 		TextView title = (TextView) findViewById(R.id.item_title);
 		TextView description = (TextView) findViewById(R.id.item_description);
 
-		picture.setImageBitmap(Utility.getBitmapFromString(item.getPicture()));
+		if (item.getPicture().equals("")) {
+			picture.setVisibility(View.GONE);
+		}
+		else {
+			picture.setImageBitmap(Utility.getBitmapFromString(item.getPicture()));
+		}
 		title.setText(item.getTitle());
 		description.setText(item.getDescription());
 	}
