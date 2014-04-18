@@ -7,6 +7,14 @@
 					<a href="#" ui-sref="app.login">Login/Sign up</a>
 				</li>
 				
+				<li ng-class="{ 'active': $state.includes('app.create')}">
+					<a href="#" ui-sref="app.create">Create Profile</a>
+				</li>
+				
+				<li ng-class="{ 'active': $state.includes('app.guest')}">
+					<a href="#" ui-sref="app.guest">Guest</a>
+				</li>
+				
 				<li ng-class="{ 'active': $state.includes('app.user')}">
 					<a href="#" ui-sref="app.user">Profile</a>
 				</li>

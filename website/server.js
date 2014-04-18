@@ -14,9 +14,11 @@ mongoose.connect('mongodb://localhost/app');
 app.configure(function() {
 	app.use(express.static(__dirname + '/app'));
 	app.use(express.logger('dev'));
-	app.use(express.bodyParser());
+	app.use(express.bodyParser({uploadDir: '/images'}));
 	app.use(express.multipart());
 	app.use(express.methodOverride());
+	app.use(express.cookieParser());
+	app.use(express.session({secret: '1234'}));
 });
 
 //model code
@@ -53,11 +55,58 @@ var User = mongoose.model('User', {
 	}
 );
 
+function restrict(req, res, next) {
+  if (req.session.userId) {
+    next();
+  } else {
+    req.session.error = 'Access denied!';
+	res.send(401, {error: 'Not logged in'});
+  }
+}
+
+app.get('/restricted', restrict, function(req, res){
+
+});
+
+
 //api code
 app.namespace('/api', function() {
 
+	//login
+	app.post('/login/', function(request,response) {
+		User.findOne({
+			display_name: request.body.display_name,
+			password: request.body.password
+		},function(error, user) {
+			if (error) {
+				response.send(error);
+			}
+			request.session.userId = user._id;
+			console.log(request.session);
+			response.json(user);
+		});
+	});
+	
+	//logout
+	app.post('/logout/', function(request,response) {
+		request.session.userId = null;
+		response.send('Logout success!');
+	});
+	
+	//guest items
+	app.get('/guestitem', function(request,response) {
+		Item.find(function(error, items) {
+			//if error, then send error message
+			if(error) {
+				response.send(error);
+			}
+			//return Items
+			response.json(items);
+			});
+		});
+		
 	//get all Items
-	app.get('/item', function(request,response) {
+	app.get('/item', restrict, function(request,response) {
 		Item.find(function(error, items) {
 			//if error, then send error message
 			if(error) {
@@ -69,7 +118,7 @@ app.namespace('/api', function() {
 		});
 
 	//get one item
-	app.get('/item/:collectionId', function(request,response) {
+	app.get('/item/:collectionId', restrict, function(request,response) {
 		Item.find({ collection_id: request.params.collectionId}).exec(function(error, items) {
 			if (error) {
 				response.send(error);
@@ -78,28 +127,18 @@ app.namespace('/api', function() {
 			});
 		});
 		
-	//image upload
-	/*
-	app.post('/upload', function(req, res) {
-		console.log(req.files.uploadFile);
-		res.send('sweet!');
-		
-		var tempPath = request.files.uploadFile.path;
-		var newPath = './public/images/' + req.files.uploadFile.name;
-		fs.rename(tempPath, newPath, function(err) {
-			if (err) throw err;
-			
-			fs.unlink(tempPath, function() {
-				if (err) throw err;
-				response.send('File uploaded');
-			});
-		});
-			
-			
-	}); */
+	app.post('/item/upload', function(req, res, next){
+  // the uploaded file can be found as `req.files.image` and the
+  // title field as `req.body.title`
+  res.send(format('\nuploaded %s (%d Kb) to %s as %s'
+    , req.files.image[0].name
+    , req.files.image[0].size / 1024 | 0
+    , req.files.image[0].path
+    , req.body.title));
+});
 		
 	//create an item
-	app.post('/item', function(request, response) {
+	app.post('/item', restrict, function(request, response) {
 		Item.create( {
 			collection_id: request.body.collection_id,
 			title: request.body.title,
@@ -121,7 +160,7 @@ app.namespace('/api', function() {
 			});
 			
 	//update an item		
-	app.post('/item/:item_id', function(request,response) {
+	app.post('/item/:item_id', restrict, function(request,response) {
 		Item.findByIdAndUpdate(request.params.item_id, {
 			collection_id: request.body.collection_id,
 			title: request.body.title,
@@ -136,7 +175,7 @@ app.namespace('/api', function() {
 		});
 		
 	//delete an item
-	app.delete('/item/:item_id', function(request,response) {
+	app.delete('/item/:item_id', restrict, function(request,response) {
 		Item.remove ( {
 			_id : request.params.item_id
 			}, function (error, item) {
@@ -149,7 +188,7 @@ app.namespace('/api', function() {
 			});
 		});
 	//get single collection of items
-	app.get('/collection/:collectionId', function(request,response) {
+	/*app.get('/collection/:collectionId', function(request,response) {
 		Collection.findById(request.params.collectionId, function(error, Id) {
 			if (error) {
 				response.send(error);
@@ -157,12 +196,32 @@ app.namespace('/api', function() {
 			
 			response.json(Id);
 		});
-	});
+	});*/
 		
 	//collection stuff
+	//get guest
+	app.get('/guest', function(request,response) {
+		Collection.find({}, function(error, collections) {
+			//if error, then send error message
+			if(error) {
+				response.send(error);
+			}
+			//return Items
+			response.json(collections);
+			});
+		});
+		
+	app.get('/guest/:collection_id', function(request, response) {
+		Collection.findById(request.params.collection_id).exec(function(error, collection) {
+			if (error) {
+				response.send(error);
+			}
+			response.json(collection);
+		});
+	});	
 	//get all
-	app.get('/collection', function(request,response) {
-		Collection.find(function(error, collections) {
+	app.get('/collection', restrict, function(request,response) {
+		Collection.find({owner: request.session.userId}, function(error, collections) {
 			//if error, then send error message
 			if(error) {
 				response.send(error);
@@ -172,7 +231,7 @@ app.namespace('/api', function() {
 			});
 		});
 	//single
-	app.get('/collection/:collection_id', function(request, response) {
+	app.get('/collection/:collection_id', restrict, function(request, response) {
 		Collection.findById(request.params.collection_id).exec(function(error, collection) {
 			if (error) {
 				response.send(error);
@@ -182,13 +241,13 @@ app.namespace('/api', function() {
 	});	
 
 	//create
-	app.post('/collection', function(request, response) {
+	app.post('/collection', restrict, function(request, response) {
 		Collection.create ({
 			title: request.body.title,
 			description: request.body.description,
 			category: request.body.category,
 			picture: request.body.picture,
-			owner: request.body.owner,
+			owner: request.session.userId,
 			is_private: request.body.is_private,
 			favorites: request.body.favorites
 		}, function (error, collection) {
@@ -206,7 +265,7 @@ app.namespace('/api', function() {
 		});
 	});
 	//update a collection	
-	app.post('/collection/:collection_id', function(request,response) {
+	app.post('/collection/:collection_id', restrict, function(request,response) {
 		Collection.findByIdAndUpdate(request.params.collection_id, {
 			category: request.body.catgeory,
 			title: request.body.title,
@@ -224,7 +283,7 @@ app.namespace('/api', function() {
 		});
 
 	//delete 
-	app.delete('/collection/:collection_id', function(request, response) {
+	app.delete('/collection/:collection_id', restrict, function(request, response) {
 		Collection.remove({
 			_id: request.params.collection_id
 		}, function(error, collection) {
@@ -239,17 +298,16 @@ app.namespace('/api', function() {
 	
 	// user stuff
 	// get all users
-	app.get('/user', function(request,response) {
-		User.find(function(error, users) {
+	app.get('/user',restrict, function(request,response) {
+		User.findById(request.session.userId).exec(function(error, users) {
 			if(error) {
 				response.send(error);
 			}
-			
 			response.json(users);
 		});
 	});
 	//get a single user
-	app.get('/user/:userId', function(request,response) {
+	app.get('/user/:userId', restrict, function(request,response) {
 		User.findById(request.params.userId).exec(function(error, userId) {
 			if (error) {
 				response.send(error);
@@ -259,7 +317,7 @@ app.namespace('/api', function() {
 		});
 		
 	//create a user
-	app.post('/user', function(request, response) {
+	app.post('/user',  function(request, response) {
 		User.create( {
 			email: request.body.email,
 			password: request.body.password,
@@ -280,7 +338,7 @@ app.namespace('/api', function() {
 			});
 			
 	//update a user		
-	app.post('/user/:user_id', function(request,response) {
+	app.post('/user/:user_id', restrict, function(request,response) {
 		User.findByIdAndUpdate(request.params.user_id, {
 			email: request.body.email,
 			password: request.body.password,
@@ -295,37 +353,20 @@ app.namespace('/api', function() {
 		});
 		
 	//delete a user
-	app.delete('/user/:user_id', function(request,response) {
-		User.remove ( {
-			_id : request.params.user_id
-			}, function (error, user) {
-				if (error) {
-					response.send(error);
-				}
-				response.json( {
-					'status': 'success'
-				});
-			});
-		});
-});
-
-//login
-	app.get('/login', function(request,response) {
-		User.findOne({
-			display_name: request.params.display_name,
-			password: request.params.password
-		},function(error, user) {
+	app.delete('/user/:user_id', restrict, function(request,response) {
+	User.remove ( {
+		_id : request.params.user_id
+		}, function (error, user) {
 			if (error) {
 				response.send(error);
 			}
-			response.json(user);
+			response.json( {
+				'status': 'success'
+			});
 		});
-	});	
-	//add comment routes
-
-	//app.get('*', function(request, response) {
-		//response.sendfile('./app/index.html');
-	//});
+	});
+		
+});
 
 exports = module.exports = app;
 	

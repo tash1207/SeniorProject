@@ -13,10 +13,10 @@
 		</div>
 			
 			<div class="col-md-12">
-				<div class="slat row" ng-repeat="collection in collection | filter:filterId">
+				<div class="slat row" ng-repeat="collection in collection">
 					<div class="col-md-4 col-sm-12 col-xs-12">
 						<h4 class="slat-title">
-							<a href="" ui-sref="app.item({collectionId: collection._id})">{{collection.title}}</a>
+							<a href="" ui-sref="app.item({collectionName: collection.title, collectionId: collection._id})">{{collection.title}}</a>
 						</h4>
 					</div>
 					<div class="col-md-5 col-sm-15 col-xs-12">

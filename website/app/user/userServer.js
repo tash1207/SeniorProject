@@ -32,6 +32,10 @@
 						return $http.delete('/api/user/' + id);
 					};
 					
+					userServer.logout = function(user) {
+						return $http.post('/api/logout/', user);
+					};
+					
 					return userServer;
 				
 					

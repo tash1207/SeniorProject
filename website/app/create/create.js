@@ -1,13 +1,12 @@
 (function() {
 	'use strict';
 	
-	var moduleName = 'app.login',
+	var moduleName = 'app.create',
 	
 	angularDependencies = [
 		'ui.router',
 		'ui.bootstrap',
-		'app.login.new',
-		'app.login.loginServer'
+		'app.create.createServer'
 		// fill in dependencies later
 		];
 	
@@ -15,8 +14,7 @@
 		'angular',
 		'ui.router',
 		'ui.bootstrap',
-		'app.login.new',
-		'app.login.loginServer'
+		'app.create.createServer'
 		// fill in as they come
 		], function(angular) {
 			var module = angular.module(moduleName, angularDependencies);
@@ -24,17 +22,17 @@
 			module.config(['$stateProvider',
 				function($stateProvider) {
 					
-					$stateProvider.state('app.login', {
-						controller: 'loginController',
-						url: '/login',
-						templateUrl: '/login/login.html',
+					$stateProvider.state('app.create', {
+						controller: 'createController',
+						url: '/create',
+						templateUrl: '/create/login_form.html',
 					});
 				}
 			]);
 			
-			module.controller('loginController', ['$scope','$state','loginServer',
-				function($scope,$state,loginServer) {
-					console.log('loginController');
+			module.controller('createController', ['$scope','$state','createServer',
+				function($scope,$state,createServer) {
+					console.log('createController');
 					
 					$scope.feedback = {
 						hasFeedback: false,
@@ -53,25 +51,22 @@
 						password: null,
 					};
 					
-					$scope.loginChange = function() {
-						$state.go('app.login.new');
-					};
 					
-					
-					$scope.login = function() {
-						console.log('logging in...');
-					
-						loginServer.login($scope.user).then(function success(response) {
+					$scope.saveUser = function() {
+						console.log('adding user...');
+						createServer.create($scope.user).then(
+							function success(response) {
 								console.log(response);
 								$scope.setFeedback(true, 'success', 'Success!');
-								$state.go('app.user');
 							},
 							
 							function error(response) {
 								console.log(response);
 								$scope.setFeedback(true, 'danger', response);
 							}
-						)};
+						
+						);
+					};
 					
 				
 					

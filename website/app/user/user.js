@@ -33,27 +33,27 @@
 								function(userServer) {
 									return userServer.get();
 								}
-							],
-							'users': ['userServer', '$stateParams',
-								function(userServer, $stateParams) {
-									return userServer.get($stateParams.userId).then(function(response) {
-										return response.data;
-									});
-								}
 							]
+							
 						}
 					});
 				}
 			]);
 			
-			module.controller('userController', ['$scope','$state','userServer','user','users',
-				function($scope,$state,userServer,user,users) {
+			module.controller('userController', ['$scope','$state','userServer','user',
+				function($scope,$state,userServer,user) {
 					console.log('userController', user);
-					console.log(users);
 					
 					//add functionality here
 					$scope.user = user.data;
-					$scope.users = users;
+					
+					$scope.logout = function() {
+						userServer.logout($scope.user).then(function(response) {
+							console.log(response);
+							$state.go('app.login');
+						});
+					};
+					
 					
 					$scope.deleteUser = function(id) {
 						var index = _.findIndex($scope.user, {
@@ -66,9 +66,7 @@
 						});
 					};
 					
-					$scope.filterId = function(user) {
-						return(user._id == $scope.users);
-					}
+					
 					
 					}
 				]);

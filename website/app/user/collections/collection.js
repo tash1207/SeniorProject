@@ -27,36 +27,30 @@
 					
 					$stateProvider.state('app.collection', {
 						controller: 'collectionController',
-						url: '/:userId/collections/',
+						url: '/:userName/collections/',
 						templateUrl: 'user/collections/collection.html',
 						resolve: {
 							'collection': ['collectionServer',
 								function(collectionServer) {
 									return collectionServer.get();
 								}
-							],
-							'userId': ['$stateParams', 'userServer',
-								function($stateParams, userServer) {
-									return userServer.get($stateParams.userId).then(function(response) {
-										return response.data;
-									});
-								}
 							]
+							
 						}
 					});
 				}
 			]);
 			
-			module.controller('collectionController', ['$scope','$state','collectionServer','collection','userId',
-				function($scope,$state,collectionServer,collection,userId) {
+			module.controller('collectionController', ['$scope','$state','collectionServer','collection',
+				function($scope,$state,collectionServer,collection) {
 					console.log('collectionController', collection);
-					console.log(userId);
+				
 					
 					//add functionality here
 					$scope.collection = collection.data;
 					
 					
-					$scope.userId = userId._id;
+					
 					
 					$scope.deleteCollection = function(id) {
 						var index = _.findIndex($scope.collection, {
@@ -68,9 +62,7 @@
 							$scope.collection.splice(index,1);
 						});
 					};
-					$scope.filterId = function(collection) {
-						return (collection.owner == $scope.userId);
-					}
+					
 					
 					}
 				]);

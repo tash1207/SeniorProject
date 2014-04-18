@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 	
-	var moduleName = 'app.login.loginServer',
+	var moduleName = 'app.create.createServer',
 	
 		angularDependencies = [];
 	
@@ -11,29 +11,29 @@
 		
 			var module = angular.module(moduleName, angularDependencies);
 			
-			module.factory('loginServer', ['$http','$q',
+			module.factory('createServer', ['$http','$q',
 				function($http, $q) {
-					var loginServer = {};
+					var createServer = {};
 					
-					/*loginServer.get = function(id) {
+					/*createServer.get = function(id) {
 						id = id || '';
 						return $http.get('/api/login/' + id);
 					};*/
 					
-					loginServer.login = function(user) {
+					createServer.login = function(user) {
 							console.log('Hi');
 							return $http.post('/api/login/', user);
 					};
 					
-					loginServer.create = function(login) {
+					createServer.create = function(login) {
 						return $http.post('/api/user/', login);
 					};
 					
-					loginServer.update = function(login) {
+					createServer.update = function(login) {
 						return $http.post('/api/login/' + login._id, login);
 					};
 					
-					loginServer.delete = function(id) {
+					createServer.delete = function(id) {
 						return $http.delete('/api/login/' + id);
 					};
 					/*
@@ -41,7 +41,7 @@
 						return $http.post('/api/upload/', uploadFile);
 					};*/
 					
-					return loginServer;
+					return createServer;
 				
 					
 					

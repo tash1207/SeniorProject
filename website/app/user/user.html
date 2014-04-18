@@ -2,8 +2,8 @@
     <div class="action-bar clearfix">
         <h1>Profile</h1>
         <div>
-            <a class="btn btn-primary btn-block" href="" ui-sref="app.user.new">Create a new Profile!</a>
-			<a class="btn btn-primary btn-block" href="" ui-sref="app.login">Login</a>
+            <a class="btn btn-primary btn-block" href="" ui-sref="app.login.new">Edit Profile!</a>
+			<a class="btn btn-primary btn-block" href="" ng-click="logout()">Logout</a>
         </div>
     </div>
 	<div class="col-md-12">
@@ -16,10 +16,10 @@
 	</div>	
 	
 	<div class="col-md-12">
-		<div class="slat row" ng-repeat="user in user">
+		<div class="slat row">
 			<div class="col-md-4 col-sm-12 col-xs-12">
 				<h4 class="slat-title">
-					<a href="" ui-sref="app.collection({userId: user._id})">{{user.display_name}}</a>
+					<a href="" ui-sref="app.collection({userName: user.display_name})">{{user.display_name}}</a>
 				</h4>
 			</div>
 			<div class="col-md-5 col-sm-15 col-xs-12">

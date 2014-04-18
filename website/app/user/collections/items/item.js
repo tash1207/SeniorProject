@@ -26,7 +26,7 @@
 					
 					$stateProvider.state('app.item', {
 						controller: 'itemController',
-						url: '/:userId/collections/:collectionId/items/',
+						url: '/:userName/collections/:collectionId/items/',
 						templateUrl: 'user/collections/items/item.html',
 						resolve: {
 							'item': ['itemServer',
@@ -60,6 +60,7 @@
 					console.log(items);
 					
 					//add functionality here
+					$scope.items = items;
 					$scope.item = item.data;
 					$scope.collectionId = collectionId._id;
 					console.log(collectionId._id);

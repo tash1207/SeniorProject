@@ -26,23 +26,14 @@
 						controller: 'collectionNewController',
 						url: 'newCollection',
 						templateUrl: 'user/collections/collection_form.html',
-						resolve: {
-							'userId': ['$stateParams', 'userServer',
-									function($stateParams, userServer) {
-										return userServer.get($stateParams.userId).then(function(response) {
-											return response.data;
-										});
-									}
-								]
-							}
+						
 					});
 				}
 			]);
 			
-			module.controller('collectionNewController', ['$scope', '$state', 'collectionServer','userId',
-				function($scope,$state,collectionServer,userId) {
+			module.controller('collectionNewController', ['$scope', '$state', 'collectionServer',
+				function($scope,$state,collectionServer) {
 					console.log('collectionNewController');
-					console.log(userId);
 					
 					$scope.feedback = {
 						hasFeedback: false,
@@ -61,7 +52,6 @@
 						description: null,
 						category: null,
 						picture: null,
-						owner: userId._id,
 						isPrivate: false,
 						favorites: null
 					};

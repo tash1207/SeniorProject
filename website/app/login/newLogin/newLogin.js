@@ -1,18 +1,20 @@
 (function() {
 	'use strict';
 	
-	var moduleName = 'app.user.new',
+	var moduleName = 'app.login.new',
 	
 		angularDependencies = [
 			'ui.router',
-			'app.user.userServer'
+			'app.login',
+			'app.login.loginServer'
 			// fill in
 			];
 	
 	define([
 		'angular',
 		'ui.router',
-		'app.user.userServer'
+		'app.login',
+		'app.login.loginServer'
 		], function(angular) {
 			
 			var module = angular.module(moduleName, angularDependencies);
@@ -20,17 +22,17 @@
 			module.config(['$stateProvider',
 				function($stateProvider) {
 					
-					$stateProvider.state('app.user.new', {
-						controller: 'userNewController',
-						url: 'newUser',
-						templateUrl: '/user/user_form.html',
+					$stateProvider.state('app.login.new', {
+						controller: 'loginNewController',
+						url: '/newLogin',
+						templateUrl: '/login/login_form.html',
 					});
 				}
 			]);
 			
-			module.controller('userNewController', ['$scope', '$state', 'userServer',
-				function($scope,$state,userServer) {
-					console.log('userNewController');
+			module.controller('loginNewController', ['$scope', '$state', 'loginServer',
+				function($scope,$state,loginServer) {
+					console.log('loginNewController');
 					
 					$scope.feedback = {
                     hasFeedback: false,
@@ -44,7 +46,7 @@
 						});
 					}
 					
-					$scope.user = {
+					$scope.login = {
 						email: null,
 						password: null,
 						display_name: null,
@@ -53,7 +55,7 @@
 					
 					$scope.saveUser = function() {
 						console.log('adding user...');
-						userServer.create($scope.user).then(
+						loginServer.create($scope.login).then(
 							function success(response) {
 								reset();
 								console.log(response);
@@ -65,7 +67,7 @@
 								$scope.setFeedback(true, 'danger', response);
 							}
 						
-						);
+					);
 					};
 					$scope.setFeedback = function(hasFeedback, status, message) {
 								$scope.feedback.hasFeedback = hasFeedback;
