@@ -1,15 +1,29 @@
 package co.tashawych.collector;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import co.tashawych.db.CollectionDB;
+import co.tashawych.db.DatabaseHelper;
+import co.tashawych.http.HttpRequest;
 import co.tashawych.misc.Utility;
 
 public class MyCollectionsAdapter extends SimpleCursorAdapter {
@@ -74,8 +88,70 @@ public class MyCollectionsAdapter extends SimpleCursorAdapter {
 		};
 
 		convertView.setOnClickListener(listener);
-		
+
+		OnLongClickListener longListener = new View.OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View v) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				builder.setMessage("Do you want to delete this collection?");
+				builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						if (!Utility.hasInternetAccess(context)) {
+							Toast.makeText(context,"You need to have internet access!", Toast.LENGTH_SHORT).show();
+							return;
+						}
+						cursor.moveToPosition(position);
+						String col_id = cursor.getString(cursor.getColumnIndex(CollectionDB.COL_ID));
+						// Delete collection server-side
+						new remove_collection(col_id).execute();
+						// Delete collection client-side
+						DatabaseHelper.getHelper(context).removeCollection(col_id);
+						swapCursor(DatabaseHelper.getHelper(context).getCollectionsByUserId(Utility.getUsername(context)));
+						dialog.dismiss();
+					}
+				});
+
+				builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+
+				AlertDialog dialog = builder.create();
+				dialog.show();
+				return true;
+			}
+		};
+
+		convertView.setOnLongClickListener(longListener);
+
 		return convertView;
+	}
+
+	private class remove_collection extends AsyncTask<Void, Void, String> {
+		final String col_id;
+
+		private remove_collection(String col_id) {
+			this.col_id = col_id;
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			try {
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+				nameValuePairs.add(new BasicNameValuePair("col_id", col_id));
+
+	            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(nameValuePairs);
+
+				return HttpRequest.POST(Utility.URL + "/removeCollection", entity);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
 	}
 
 }

@@ -34,7 +34,7 @@ public class CollectionDB {
 	}
 	
 	public static Cursor getCollections(SQLiteDatabase db) {
-		return db.query(TABLE_NAME, null, null, null, null, null, COL_FAVORITES + " ASC");
+		return db.query(TABLE_NAME, null, null, null, null, null, COL_TITLE + " ASC");
 	}
 	
 	public static Cursor getCollectionsByUserId(SQLiteDatabase db, String username) {
@@ -49,6 +49,10 @@ public class CollectionDB {
 
 	public static void updateCollection(SQLiteDatabase db, Collection col) {
 		db.update(TABLE_NAME, col.toContentValues(), COL_ID + "=?", new String[] { col.getId() });
+	}
+
+	public static void removeCollection(SQLiteDatabase db, String col_id) {
+		db.delete(TABLE_NAME, COL_ID + "=?", new String[]{col_id});
 	}
 
 }

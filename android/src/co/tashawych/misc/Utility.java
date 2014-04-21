@@ -12,6 +12,8 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.util.Base64;
 import android.util.DisplayMetrics;
@@ -132,6 +134,13 @@ public class Utility {
 	public static Bitmap getBitmapFromString(String imgString) {
 		byte[] b = Base64.decode(imgString, Base64.DEFAULT);
 		return BitmapFactory.decodeByteArray(b, 0, b.length);
+	}
+
+	public static boolean hasInternetAccess(Context context) {
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo ni = cm.getActiveNetworkInfo();
+		if (ni == null || !ni.isConnected()) return false; // There are no active/connected networks
+		else return true;
 	}
 
 }

@@ -48,6 +48,10 @@ public class AddItem extends BaseActivity {
 	}
 
 	public void addItem(View v) {
+		if (!Utility.hasInternetAccess(this)) {
+			Toast.makeText(this, "You need to have internet access!", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		EditText edit_title = (EditText) findViewById(R.id.edit_title);
 		EditText edit_desc = (EditText) findViewById(R.id.edit_description);
 

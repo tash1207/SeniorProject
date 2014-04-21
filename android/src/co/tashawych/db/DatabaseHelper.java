@@ -85,6 +85,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		CollectionDB.updateCollection(db, col);
 	}
 
+	public void removeCollection(String col_id) {
+		CollectionDB.removeCollection(db, col_id);
+	}
+
 	// ItemDB methods
 
 	public void insertItem(Item item) {

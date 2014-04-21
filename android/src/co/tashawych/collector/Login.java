@@ -43,6 +43,10 @@ public class Login extends Activity {
 	}
 
 	public void btn_login_clicked(View v) {
+		if (!Utility.hasInternetAccess(this)) {
+			Toast.makeText(this, "You need to have internet access!", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		EditText edit_username = (EditText) findViewById(R.id.edit_username_login);
 		EditText edit_password = (EditText) findViewById(R.id.edit_password_login);
 
@@ -78,6 +82,10 @@ public class Login extends Activity {
 	}
 
 	public void btn_signup_clicked(View v) {
+		if (!Utility.hasInternetAccess(this)) {
+			Toast.makeText(this, "You need to have internet access!", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		EditText edit_username = (EditText) findViewById(R.id.edit_username_signup);
 		EditText edit_password = (EditText) findViewById(R.id.edit_password_signup);
 		EditText edit_email = (EditText) findViewById(R.id.edit_email_signup);

@@ -58,6 +58,10 @@ public class SettingsActivity extends BaseActivity {
 	}
 
 	public void saveChanges(View v) {
+		if (!Utility.hasInternetAccess(this)) {
+			Toast.makeText(this, "You need to have internet access!", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		EditText edit_name = (EditText) findViewById(R.id.settings_display_name);
 		EditText edit_email = (EditText) findViewById(R.id.settings_email);
 
