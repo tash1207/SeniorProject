@@ -37,4 +37,7 @@ public class ItemDB {
 		return db.query(TABLE_NAME, null, ITEM_COL_ID + "=?", new String[] { col_id }, null, null, ITEM_TITLE + " ASC");
 	}
 
+	public static void removeItem(SQLiteDatabase db, String id) {
+		db.delete(TABLE_NAME, ITEM_ID + "=?", new String[]{id});
+	}
 }

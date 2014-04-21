@@ -64,7 +64,7 @@ public class MyCollectionsAdapter extends SimpleCursorAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         
-        cursor.moveToPosition(position);
+        if (cursor.moveToPosition(position)) {
         holder.title.setText(cursor.getString(cursor.getColumnIndex(CollectionDB.COL_TITLE)));
         
         String imgString = cursor.getString(cursor.getColumnIndex(CollectionDB.COL_PICTURE));
@@ -93,6 +93,7 @@ public class MyCollectionsAdapter extends SimpleCursorAdapter {
 
 			@Override
 			public boolean onLongClick(View v) {
+				cursor.moveToPosition(position);
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
 				builder.setMessage("Do you want to delete this collection?");
 				builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -102,13 +103,13 @@ public class MyCollectionsAdapter extends SimpleCursorAdapter {
 							Toast.makeText(context,"You need to have internet access!", Toast.LENGTH_SHORT).show();
 							return;
 						}
-						cursor.moveToPosition(position);
 						String col_id = cursor.getString(cursor.getColumnIndex(CollectionDB.COL_ID));
 						// Delete collection server-side
 						new remove_collection(col_id).execute();
 						// Delete collection client-side
 						DatabaseHelper.getHelper(context).removeCollection(col_id);
-						swapCursor(DatabaseHelper.getHelper(context).getCollectionsByUserId(Utility.getUsername(context)));
+						cursor = DatabaseHelper.getHelper(context).getCollectionsByUserId(Utility.getUsername(context));
+						swapCursor(cursor);
 						dialog.dismiss();
 					}
 				});
@@ -127,6 +128,7 @@ public class MyCollectionsAdapter extends SimpleCursorAdapter {
 		};
 
 		convertView.setOnLongClickListener(longListener);
+        }
 
 		return convertView;
 	}

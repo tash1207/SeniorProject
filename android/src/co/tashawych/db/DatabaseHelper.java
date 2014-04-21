@@ -103,4 +103,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return ItemDB.getItemsByCollectionId(db, col_id);
 	}
 
+	public void removeItem(String id) {
+		ItemDB.removeItem(db, id);
+	}
+
 }
