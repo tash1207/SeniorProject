@@ -3,6 +3,7 @@ import userDAO
 import collectionDAO
 import itemDAO
 import bottle
+import sys
 
 @bottle.get('/login')
 def login():
@@ -97,6 +98,27 @@ def post_edit_collection():
 
   return 'Changes Saved!'
 
+@bottle.get('/removeCollection')
+def get_remove_collection():
+  return '''
+    <form action="/removeCollection" method="post">
+      Collection Id: <input name="col_id" type="text" />
+      <input value="Remove Collection" type="submit" />
+    </form>
+  '''
+
+@bottle.post('/removeCollection')
+def post_remove_collection():
+  col_id = bottle.request.forms.get("col_id")
+  try:
+    items.remove_items_from_collection(col_id)
+    collections.remove_collection(col_id)
+  except:
+    print sys.exc_info()[0]
+    return "Error Occurred"
+
+  return col_id
+
 @bottle.get('/addItem')
 def get_add_item():
   return '''
@@ -131,6 +153,20 @@ def get_get_items():
 def post_get_items():
   col_id = bottle.request.forms.get("col_id")
   return str(items.get_items(col_id))
+
+@bottle.get('/removeItem')
+def get_remove_items():
+  return '''
+    <form action="/removeItem" method="post">
+      Item Id: <input name="item_id" type="text" />
+      <input value="Remove Item" type="submit" />
+    </form>
+  '''
+
+@bottle.post('/removeItem')
+def post_remove_item():
+  item_id = bottle.request.forms.get("item_id")
+  return str(items.remove_item(item_id))
 
 @bottle.get('/editUser')
 def get_edit_user():

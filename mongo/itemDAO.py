@@ -38,3 +38,9 @@ class ItemDAO:
         'description':item['description'], 'picture':item['picture'], 'collection_id':col_id })
 
     return a
+
+  def remove_item(self, item_id):
+    return self.items.remove({"_id": ObjectId(item_id)});
+
+  def remove_items_from_collection(self, col_id):
+    return self.items.remove({"collection_id": col_id});

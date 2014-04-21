@@ -1,4 +1,5 @@
 import pymongo
+import sys
 from bson.objectid import ObjectId
 
 # The Collection Data Access Object handles interactions with the Collections table
@@ -33,3 +34,6 @@ class CollectionDAO:
             self.collections.update({'_id':col_id},{'$set':{'picture':picture}},upsert=False,multi=False)
 
         return True
+
+	def remove_collection(self, col_id):
+		return self.collections.remove({"_id": ObjectId(col_id)});
